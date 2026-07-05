@@ -2,27 +2,27 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Datenschutz – Walter Uehli" description="Datenschutzerklärung.">
+<Base
+	title="Datenschutz – Walter Uehli"
+	description="Datenschutzerklärung von walter-uehli.ch."
+>
 	<section class="section">
 		<div class="container prose">
 			<h1>Datenschutz</h1>
-			<p class="muted">
-				Platzhalter. Bitte die bestehende Datenschutzerklärung von walter-uehli.ch übernehmen
-				oder aktualisieren – insbesondere zu Newsletter-Anbieter (z.&nbsp;B. Brevo/Mailchimp),
-				Formular-Dienst (z.&nbsp;B. Formspree) und Hosting.
-			</p>
-			<h2>Verantwortliche Stelle</h2>
-			<p>Walter Uehli, [Adresse], Schweiz.</p>
-			<h2>Newsletter</h2>
-			<p>
-				Für den Versand des Newsletters werden Vorname und E-Mail-Adresse gespeichert. Die
-				Abmeldung ist jederzeit über den Link in jeder E-Mail möglich.
-			</p>
-			<h2>Kontakt- und Testleser-Formulare</h2>
-			<p>
-				Die übermittelten Angaben werden ausschliesslich zur Bearbeitung der Anfrage verwendet
-				und nicht an Dritte weitergegeben.
-			</p>
+
+			<!-- PrivacyBee: lädt die aktuelle Datenschutzerklärung -->
+			<privacybee-widget website-id="cm5cbolgb001xm2ibd184k58e" type="dsg" lang="de"
+			></privacybee-widget>
+
+			<noscript>
+				<p class="muted">
+					Zur Anzeige der Datenschutzerklärung wird JavaScript benötigt. Alternativ findest du
+					sie unter <a href="https://walter-uehli.ch/datenschutz/">walter-uehli.ch/datenschutz</a>.
+				</p>
+			</noscript>
 		</div>
 	</section>
 </Base>
+
+<!-- PrivacyBee-Widget-Skript (unverändert von Astro einbinden) -->
+<script is:inline data-jetpack-boost="ignore" src="https://app.privacybee.io/widget.js" defer></script>

@@ -3,25 +3,71 @@ import Base from '../layouts/Base.astro';
 import { AUTHOR } from '../consts';
 ---
 
-<Base title="Impressum – Walter Uehli" description="Impressum und Anbieterkennzeichnung.">
+<Base
+	title="Impressum – Walter Uehli"
+	description="Impressum und Anbieterkennzeichnung von walter-uehli.ch."
+>
 	<section class="section">
 		<div class="container prose">
 			<h1>Impressum</h1>
-			<p><strong>Verantwortlich für den Inhalt</strong></p>
+
+			<h2>Verantwortliche Instanz</h2>
 			<p>
-				Walter Uehli<br />
-				{/* TODO: vollständige Adresse aus bestehendem Impressum übernehmen */}
-				[Strasse und Hausnummer]<br />
-				[PLZ Ort], Schweiz
+				Walter Uehli – Autor<br />
+				c/o Autorenservice Gorischek<br />
+				Am Rinnergrund 14/5<br />
+				8101 Gratkorn<br />
+				Österreich<br />
+				E-Mail: <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
+			</p>
+
+			<h2>Vertretungsberechtigte Personen</h2>
+			<p>Walter Uehli</p>
+
+			<h2>Unternehmen</h2>
+			<p>
+				Name des Unternehmens: Walter Uehli – Autor<br />
+				Registrationsnummer: CH-400-1610702-3
+			</p>
+
+			<h2>Haftungsausschluss</h2>
+			<p>
+				Der Autor übernimmt keine Gewähr für die Richtigkeit, Genauigkeit, Aktualität,
+				Zuverlässigkeit und Vollständigkeit der Informationen. Haftungsansprüche gegen den
+				Autor wegen Schäden materieller oder immaterieller Art, die aus dem Zugriff oder der
+				Nutzung bzw. Nichtnutzung der veröffentlichten Informationen, durch Missbrauch der
+				Verbindung oder durch technische Störungen entstanden sind, werden ausgeschlossen.
 			</p>
 			<p>
-				E-Mail: <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a><br />
-				Telefon: <a href={`tel:${AUTHOR.phoneHref}`}>{AUTHOR.phone}</a>
+				Alle Angebote sind freibleibend. Der Autor behält es sich ausdrücklich vor, Teile der
+				Seiten oder das gesamte Angebot ohne gesonderte Ankündigung zu verändern, zu ergänzen,
+				zu löschen oder die Veröffentlichung zeitweise oder endgültig einzustellen.
 			</p>
-			<p class="muted">
-				Hinweis: Bitte die vollständigen Angaben aus dem bestehenden Impressum von
-				walter-uehli.ch übernehmen.
+
+			<h2>Haftungsausschluss für Inhalte und Links</h2>
+			<p>
+				Verweise und Links auf Webseiten Dritter liegen ausserhalb unseres
+				Verantwortungsbereichs. Es wird jegliche Verantwortung für solche Webseiten abgelehnt.
+				Der Zugriff und die Nutzung solcher Webseiten erfolgen auf eigene Gefahr des jeweiligen
+				Nutzers.
 			</p>
+
+			<h2>Urheberrechtserklärung</h2>
+			<p>
+				Die Urheber- und alle anderen Rechte an Inhalten, Bildern, Fotos oder anderen Dateien
+				auf dieser Website gehören ausschliesslich Walter Uehli – Autor oder den speziell
+				genannten Rechteinhabern. Für die Reproduktion jeglicher Elemente ist die schriftliche
+				Zustimmung des Urheberrechtsträgers im Voraus einzuholen.
+			</p>
+
+			<p class="muted src">Quelle: BrainBox Solutions</p>
 		</div>
 	</section>
 </Base>
+
+<style>
+	.src {
+		font-size: 0.85rem;
+		margin-top: 2rem;
+	}
+</style>
