@@ -12,7 +12,7 @@ WICHTIG! Reserviere dir am 19. September 2025 einen Termin ab 18.00 Uhr! – [Tr
 
 Es ist endlich soweit – mein Erstlingswerk hat das inhaltliche Lektorat durchlaufen und ist zurück! 🎉 Für mich als Neuling in der Welt des Schreibens ist dies ein aufregender und lehrreicher Moment. Nun gilt es, die wertvollen Anmerkungen zu studieren, über meine Formulierungen nachzudenken und meiner Geschichte den finalen Schliff zu geben. In diesem Beitrag nehme ich dich mit auf meine Reise und teile, was dieser Prozess für mich bedeutet.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/02/Inhaltliches-Lektorat-1.jpg)
+![](/blog/Inhaltliches-Lektorat-1.jpg)
 
 ## Das inhaltliche Lektorat - Der erste Schritt
 

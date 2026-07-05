@@ -8,7 +8,7 @@ Vielleicht hast du dich in letzter Zeit auch schon gefragt, wo ich eigentlich ab
 
 Das hatte absolut nichts mit Faulheit oder mangelnder Lust zu tun. Es ist viel simpler: Neben meiner Leidenschaft für das Schreiben stecke ich noch immer voll in meinem 100-Prozent-Berufsalltag bei meinem Arbeitgeber. Alles unter einen Hut zu bringen, also die Arbeit am neuen Manuskript, die Posts auf Instagram und dann noch dieser Blog, war eine Hürde, die mich schlichtweg zu viel Zeit gekostet hat.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/06/image.png)
+![](/blog/image.png)
 
 Aber bald sieht es ganz anders aus und ich freue mich riesig darauf. Im August beginnt nämlich ein völlig neuer Lebensabschnitt für mich. Ich werde pensioniert. Wer mich kennt, weiss aber, dass ich mich nicht einfach zur Ruhe setze. Ich packe die Koffer, nehme meine Hündin mit und wir beide gehen mit dem Wohnmobil auf Reisen. Endlich werde ich die Freiheit haben, die Welt zu entdecken und gleichzeitig überall dort weiterzuschreiben, wo es uns gerade gefällt.
 
@@ -22,7 +22,7 @@ Ab jetzt geht es wieder richtig los. Mein Notizbuch ist voll mit Ideen und ich s
 
 Zuvor gibt es aber noch ein kreatives Highlight. Über Pfingsten im Mai ziehe ich mich mit Autorenkolleginnen an den Schluchsee im Schwarzwald zurück. Dort werden wir ein verlängertes Wochenende lang gemeinsam plotten, schreiben, uns austauschen, aber auch geniessen. Ich werde die Zeit nutzen, um das Fundament für mein nächstes Projekt zu legen: «Huwiler und das goldene Kreuz».
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2026/02/Walter_uehli_A_high-quality_professional_photography_of_Walter_Uehli._He_is_s_3f4e3606-d9e1-4766-b8cc-8b0ce3e57cb6.jpg)
+![](/blog/Walter_uehli_A_high-quality_professional_photography_of_Walter_Uehli._.jpg)
 
 Ich freue mich sehr, dass du mich auf diesem Weg begleitest. Was sind eigentlich deine grossen Pläne oder Träume für die kommende Zeit? Schreib mir doch mal eine Nachricht, ich bin gespannt auf deine Geschichte. Und falls du Lust hast, künftig keinen meiner persönlichen Einblicke mehr zu verpassen, melde dich doch gleich für meinen [Newsletter](https://flow.cleverreach.com/fl/a7211b99-8f77-4bfe-ba60-12d1465fb08a/?pid=[USER_ID_SECURE]&mid=[MAILING_ID]&gid=[CTID]) an. So bleiben wir ganz direkt in Verbindung.
 

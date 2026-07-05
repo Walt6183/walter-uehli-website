@@ -4,12 +4,12 @@ description: "Tschau! Wie sieht’s bei dir aus? Hast du Jahresziele? Hast du di
 pubDate: 2024-01-24
 ---
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/01/2889040.jpg)
+![](/blog/2889040.jpg)
 
 Tschau! 
 Wie sieht’s bei dir aus? Hast du Jahresziele? Hast du diese schon mit all deinen Freunden und Followern geteilt?
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/01/AdobeStock_637875699-scaled.jpeg)
+![](/blog/AdobeStock_637875699-scaled.jpeg)
 
 Nicht?
 
@@ -39,11 +39,11 @@ Nehmen wir noch die Lachanfälle dazu, jedes Mal, wenn ich versuche, eine weiter
 
 Ach ja, und das heimliche Hochziehen der Knie, während ich diese Zeilen schreibe – absolute Geheimwaffe!
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/01/AdobeStock_60412876-scaled.jpeg)
+![](/blog/AdobeStock_60412876-scaled.jpeg)
 
 ## 2. Ziel: Mein Weg zu 1 Million Instagram-Follower ohne die üblichen Selfies
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/01/kwza42a1kds.jpg)
+![](/blog/kwza42a1kds.jpg)
 
 Vergiss makellose Selfies und unerreichbare Lebensstile, hier kommt die Instagram-Erfolgsgeschichte der etwas anderen Art.
 
@@ -61,7 +61,7 @@ Mein Erstlingswerk „Huwiler und der Organhandel“ ist nicht nur ein fesselnde
 
 Mein Ziel ist ehrgeizig, aber klar – ich will die Bestsellerlisten erobern! Mit  authentischen Charakteren und einer interessanten Geschichte bringe ich die dunkle Welt des Schwarzmarktes direkt in die Wohnzimmer meiner Leserschaft.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/elementor/thumbs/Huwiler-und-der-Organhandel-Fake-Cover-13.5-%C3%97-20-cm-1-qhiynbnanutes2jjk2i37lrfvno0bni7v1iovbtt6o.png)
+![](/blog/Huwiler-und-der-Organhandel-Fake-Cover-13.5---20-cm-1-qhiynbnanutes2jj.png)
 
 Also, ihr lieben, wartet wie ich gespannt auf das Erscheinen des Romans und verfolgt aufmerksam die Bestseller-Listen in euren Ländern
 

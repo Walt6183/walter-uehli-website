@@ -8,9 +8,9 @@ pubDate: 2025-01-01
 
 Willkommen im Jahr 2025! Ich hoffe, ihr seid gut gestartet und voller Tatendrang für all das, was vor uns liegt. Dieses Jahr wartet ein ganz besonderes Highlight auf euch: Noch in diesem Jahr werde ich meinen neuen Thriller rund um Huwiler und den Organhandel veröffentlichen.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/Firefly_c54fe458-9d9d-4d2e-a7e7-141b046eb89b.jpeg)
+![](/blog/Firefly_c54fe458-9d9d-4d2e-a7e7-141b046eb89b.jpeg)
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/dce29c6c-2f7a-4a72-90bc-eb78292f744c_neuroflash-Use_Case_Realistic_photoImage_Generation_Task_1734875972.webp)
+![](/blog/dce29c6c-2f7a-4a72-90bc-eb78292f744c_neuroflash-Use_Case_Realistic_pho.webp)
 
 ***Spannung und Nervenkitzel erwarten euch!***
 
@@ -20,9 +20,9 @@ Diese Geschichte geht unter die Haut, beleuchtet Themen, die unbequem sind, und 
 
 Mit diesem Thriller möchte ich euch in eine düstere Welt entführen, in der nichts so ist, wie es auf den ersten Blick scheint. Schon in wenigen Wochen erfahrt ihr mehr – und ihr werdet es nicht erwarten können, endlich in die Story einzutauchen.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/Beige-Brown-Aesthetic-Autumn-Vibe-Inspiration-Photo-Collage-1.webp)
+![](/blog/Beige-Brown-Aesthetic-Autumn-Vibe-Inspiration-Photo-Collage-1.webp)
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/Walter-Uehli-Autor-Hier-abonnieren.webp)
+![](/blog/Walter-Uehli-Autor-Hier-abonnieren.webp)
 
 *Sei dabei – abonniere meinen Newsletter für die neuesten Updates!*
 

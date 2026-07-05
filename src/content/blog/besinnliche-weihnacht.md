@@ -4,7 +4,7 @@ description: "Frohe Weihnachten! Ich wünsche Dir eine besinnliche Zeit voller F
 pubDate: 2024-12-22
 ---
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/12/image.webp)
+![](/blog/image.webp)
 
 Frohe Weihnachten! Ich wünsche Dir eine besinnliche Zeit voller Freude und innerer Einkehr. Die Weihnachtszeit lädt uns ein, innezuhalten, durchzuatmen und das vergangene Jahr Revue passieren zu lassen. Es ist eine Zeit, in der wir festliche Momente genießen und die Wärme der Gemeinschaft spüren.
 

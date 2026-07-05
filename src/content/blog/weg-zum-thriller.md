@@ -18,13 +18,13 @@ Jedes Kapitel wurde nochmals durchgelesen, wobei ich besonderes Augenmerk auf di
 
 Nach der vorläufigen Korrektur führte ich eine gründliche Überprüfung jedes Kapitels durch. Diese Schritte umfassten nicht nur Streichungen und Ergänzungen, sondern auch Umstellungen von Sätzen zur Optimierung des Textflusses, um die Verständlichkeit und Klarheit weiter zu verbessern.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/12/headphone-headset-music-stockpack-pixabay.webp)
+![](/blog/headphone-headset-music-stockpack-pixabay.webp)
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/AdobeStock_1137909778-scaled.jpeg)
+![](/blog/AdobeStock_1137909778-scaled.jpeg)
 
 ## Testleser-Feedback: Frische Perspektiven für den Text
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/12/students-learning-together-stockpack-unsplash-scaled.jpg)
+![](/blog/students-learning-together-stockpack-unsplash-scaled.jpg)
 
 Nachdem die überarbeitete Fassung vorlag, teilte ich sie mit sieben Testlesern, bestehend aus Krimi- und Thrillerliebhabern sowie Autorenkollegen. Auf Testleser aus der eigenen Familie habe ich bewusst verzichtet. Ihre wertvollen, teils kritischen Rückmeldungen waren ideal für den Prozess.
 
@@ -36,11 +36,11 @@ Mit dem wertvollen Feedback der Testleser begann eine intensive Phase der erneut
 
 Kapitel für Kapitel durchkämmte ich den Text, stellte Sätze um, kürzte oder erweiterte Passagen und verfeinerte den Text an vielen Stellen. Jeder Durchgang verstärkte die Tiefe und Spannung der Geschichte.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/AdobeStock_195387434.webp)
+![](/blog/AdobeStock_195387434.webp)
 
 ## Fazit
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/01/AdobeStock_618058067.webp)
+![](/blog/AdobeStock_618058067.webp)
 
 ### **Eine Reise des Wachstums**
 

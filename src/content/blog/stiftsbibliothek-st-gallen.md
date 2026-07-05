@@ -4,7 +4,7 @@ description: "Testleserinnen und Testlesen Die erste Überarbeitung meines Thril
 pubDate: 2024-03-25
 ---
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/03/Eingang-scaled.jpg)
+![](/blog/Eingang-scaled.jpg)
 
 Eingang Stiftsbibliothek St. Gallen
 Photo © 2024 Walter
@@ -21,7 +21,7 @@ Solltest du auch noch Testleser oder Testleserin werden wollen, so melde dich an
 
 ## Und jetzt…
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2023/12/Huwiler-und-der-Organhandel-Fake-Cover-13.5-%C3%97-20-cm-1.png)
+![](/blog/Huwiler-und-der-Organhandel-Fake-Cover-13.5---20-cm-1.png)
 
 Arbeitscover
 
@@ -37,14 +37,14 @@ Hast du vielleicht Anregungen oder Ideen? Möchtest du mir diese mitteilen? Na d
 
 ## Erlebnis Stiftsbibliothek St. Gallen
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/03/Bibliothek-1-scaled.jpg)
+![](/blog/Bibliothek-1-scaled.jpg)
 
 Stiftsbibliothek
 Photo ©2024 Walter
 
 Unglaublich die Schätze der Stiftsbibliothek St. Gallen zu besuchen. Gemäss Wikipedia besitzt diese Bibliothek rund 170’000 Bücher. Die Bücher die von 1900 und jüngeren Datums sind, können ausgeliehen werden. Die alten Werke dürfen, nach Voranmeldung in einem Lesezimmer gelesen werden.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2024/03/erster-roman.jpg)
+![](/blog/erster-roman.jpg)
 
 Roman Frau Tugendreich. Umfasst 222 Seiten, erschien 1521 von einem anonymen Autoren und gilt als der erste deutsche Roman, der in der Gegenwart spielte.
 

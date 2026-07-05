@@ -6,7 +6,7 @@ pubDate: 2025-04-21
 
 ## Einleitung
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/04/IMG_5618.png)
+![](/blog/IMG_5618.png)
 
 Glacier-Express
 
@@ -24,15 +24,15 @@ Es war der Moment nach dem inhaltlichen Lektorat – ein bedeutender Schritt, in
 
 Der nächste Meilenstein steht bereits bevor: Im Mai folgt das stilistische Lektorat. Hier geht es um den Feinschliff – den Klang der Sprache, den Rhythmus, die letzten Ecken und Kanten. Ich freue mich auf diesen Schritt, auch wenn ich weiss: Es wird noch einmal fordernd.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/04/IMG_5614-1.png)
+![](/blog/IMG_5614-1.png)
 
 Bahnhof
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/04/IMG_5594.png)
+![](/blog/IMG_5594.png)
 
 ## 🎬 Mit KI zum witzigen Buchtrailer
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/04/Buchtrailer.png)
+![](/blog/Buchtrailer.png)
 
 Buchtrailer
 
@@ -58,11 +58,11 @@ Bleib neugierig – und wenn du magst, schau dir den Trailer an. Ich verspreche:
 
 .
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/04/IMG_5605.png)
+![](/blog/IMG_5605.png)
 
 Burgruine in der Nähe
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2025/04/WhatsApp-Bild-2025-04-21-um-10.03.43_1d615350.jpg)
+![](/blog/WhatsApp-Bild-2025-04-21-um-10.03.43_1d615350.jpg)
 
 Auch Sánná gefàllt es hier
 

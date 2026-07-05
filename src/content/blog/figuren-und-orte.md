@@ -4,7 +4,7 @@ description: "Ein Thriller lebt von seinen Figuren und den Orten, an denen sie s
 pubDate: 2026-04-22
 ---
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2026/04/uEJ5d7Ywg3F-OkuyLLTKp_qGKuff2g.png)
+![](/blog/uEJ5d7Ywg3F-OkuyLLTKp_qGKuff2g.png)
 
 **Ein Thriller lebt von seinen Figuren und den Orten, an denen sie sich bewegen.**
 
@@ -22,11 +22,11 @@ Fred Huwiler ist kein Held aus dem Bilderbuch. Er ist eigensinnig, direkt, manch
 
 Ich freue mich darauf, dir diese Figuren nach und nach vorzustellen. Du wirst sehen: Jede von ihnen hat ihren eigenen Kopf.
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2026/04/VSACM5KOFKuDLDJZVzP2_DpXDeiCI.png)
+![](/blog/VSACM5KOFKuDLDJZVzP2_DpXDeiCI.png)
 
 ## Orte, die den Thriller atmen lassen
 
-![](https://i0.wp.com/walter-uehli.ch/wp-content/uploads/2026/04/nQJNSk0iOOgB5ky9xCFBp_bvsTCbMS-scaled.png)
+![](/blog/nQJNSk0iOOgB5ky9xCFBp_bvsTCbMS-scaled.png)
 
 Ein Thriller braucht Orte, die man spürt. In *«Huwiler und der Organhandel»* spielen Schauplätze eine Rolle, die real existieren, und solche, die ich frei erfunden habe. Beide werde ich dir in den kommenden Wochen hier im Blog zeigen und erzählen, warum ich mich genau für diese Orte entschieden habe.
 
