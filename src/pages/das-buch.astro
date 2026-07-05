@@ -7,14 +7,14 @@ import { BOOK } from '../consts';
 const facts = [
 	{ label: 'Reihe', value: 'Fred Huwiler · Band 1' },
 	{ label: 'Genre', value: 'Kriminalthriller' },
-	{ label: 'Schauplatz', value: 'Schweiz / Kanton Aargau' },
-	{ label: 'Erscheint', value: BOOK.releaseLabel },
+	{ label: 'Schauplatz', value: 'Südtirol · Afrika · Deutschland' },
+	{ label: 'Erscheint', value: BOOK.releaseDate },
 ];
 ---
 
 <Base
 	title={`${BOOK.title} – ${BOOK.series} | Walter Uehli`}
-	description={BOOK.blurb}
+	description={BOOK.blurbParagraphs[0]}
 >
 	<section class="section book-hero">
 		<div class="container book-grid">
@@ -22,10 +22,9 @@ const facts = [
 				<BookCover />
 			</div>
 			<div>
-				<span class="eyebrow">{BOOK.series} · {BOOK.releaseLabel}</span>
+				<span class="eyebrow">{BOOK.series} · Erscheint {BOOK.releaseDate}</span>
 				<h1>{BOOK.title}</h1>
 				<p class="lead">{BOOK.tagline}</p>
-				<p class="muted">{BOOK.blurb}</p>
 
 				<ul class="facts">
 					{facts.map((f) => (
@@ -47,27 +46,16 @@ const facts = [
 	<section class="section">
 		<div class="container prose">
 			<h2>Worum es geht</h2>
-			<p>
-				In den Schweizer Bergen verschwindet über Nacht ein Patient – ohne Spur, ohne Zeugen,
-				ohne Erklärung. Was wie ein Einzelfall aussieht, entpuppt sich für
-				<strong>Fred Huwiler</strong>, Ermittler bei der Kriminalpolizei Aargau, als loser
-				Faden an einem Netz aus Schweigen, Geld und Verrat.
-			</p>
-			<blockquote>
-				Hinter der Postkarten-Idylle lauert Dunkles.
-			</blockquote>
-			<p>
-				<em>Huwiler und der Organhandel</em> ist der Auftakt einer Thriller-Reihe über einen
-				Ermittler, der zu genau hinsieht – und über eine Welt, in der der Wert eines Menschen
-				plötzlich in Ersatzteilen gemessen wird.
-			</p>
+			{BOOK.blurbParagraphs.map((p) => <p>{p}</p>)}
+
+			<p class="release-line">Erscheint am {BOOK.releaseDate}.</p>
 
 			<h2>Die Reihe</h2>
 			<p>
 				Fred Huwiler ist kein makelloser Held. Er ist bodenständig, eigensinnig und getrieben
-				von einem Gerechtigkeitssinn, der ihm immer wieder im Weg steht. In Band 1 ermittelt er
-				noch in der Schweiz; ab Band 2 verschlägt es ihn als Berater an die Seite von
-				Commissario Elena Adores (de Rosa) nach Südtirol – in Fälle, die tief in die
+				von einem Gerechtigkeitssinn, der ihm immer wieder im Weg steht. In Band 1 ist er noch
+				Kriminalpolizist im Kanton Aargau; ab Band 2 verschlägt es ihn als Berater an die Seite
+				von Commissario Elena Adores (de Rosa) nach Südtirol – in Fälle, die tief in die
 				politischen und historischen Verwerfungen der Region führen.
 			</p>
 		</div>
@@ -121,6 +109,12 @@ const facts = [
 		display: flex;
 		gap: 0.9rem;
 		flex-wrap: wrap;
+	}
+	.release-line {
+		font-family: var(--font-sans);
+		font-weight: 600;
+		color: var(--accent-hover);
+		letter-spacing: 0.02em;
 	}
 	@media (max-width: 900px) {
 		.book-grid {

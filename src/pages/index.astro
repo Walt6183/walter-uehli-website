@@ -16,12 +16,12 @@ const posts = (await getCollection('blog'))
 	<section class="hero">
 		<div class="container hero-grid">
 			<div class="hero-copy">
-				<span class="eyebrow">{BOOK.series} · {BOOK.releaseLabel}</span>
+				<span class="eyebrow">{BOOK.series} · Erscheint {BOOK.releaseDate}</span>
 				<h1>{CLAIM}</h1>
 				<p class="lead">
 					<strong class="book-title">{BOOK.title}</strong> – {BOOK.tagline}
 				</p>
-				<p class="muted hero-blurb">{BOOK.blurb}</p>
+				<p class="muted hero-blurb">{BOOK.blurbParagraphs[0]}</p>
 				<div class="hero-actions">
 					<a href="/das-buch" class="btn btn-primary">Jetzt reinlesen</a>
 					<a href="#newsletter" class="btn btn-ghost">Tatort-Post abonnieren</a>
@@ -29,7 +29,7 @@ const posts = (await getCollection('blog'))
 			</div>
 			<div class="hero-book">
 				<BookCover />
-				<span class="release-badge">Erscheint {BOOK.releaseLabel}</span>
+				<span class="release-badge">Erscheint {BOOK.releaseDate}</span>
 			</div>
 		</div>
 	</section>

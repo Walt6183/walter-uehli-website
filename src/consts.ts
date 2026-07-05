@@ -24,10 +24,13 @@ export const AUTHOR = {
 export const BOOK = {
 	title: 'Huwiler und der Organhandel',
 	series: 'Die Fred-Huwiler-Reihe · Band 1',
-	releaseLabel: 'Juli 2026',
-	tagline: 'Ein Todesfall in den Bergen. Eine Spur, die niemand sehen soll.',
-	blurb:
-		'In den Schweizer Bergen verschwindet über Nacht ein Patient – ohne Spur, ohne Zeugen. Fred Huwiler, Ermittler bei der Kriminalpolizei Aargau, gerät in ein Netz aus Schweigen, Geld und Verrat und stösst auf die dunkelste Ware überhaupt: das menschliche Leben.',
+	releaseDate: '16. Juli 2026',
+	tagline: 'Ein harter Thriller über Verantwortung, Schuld und den Wert eines Menschenlebens.',
+	// Offizieller Klappentext, in Absätzen.
+	blurbParagraphs: [
+		'Fred Huwiler ist in Südtirol im Urlaub. Abstand gewinnen, zur Ruhe kommen, Zeit fernab von Ermittlungen. Doch als er auf Hinweise stösst, die auf einen organisierten Handel mit Organen hindeuten, erinnert er sich an etwas, das er nicht verdrängen kann. Die Erinnerung an ein Versprechen, das er seinem Jugendfreund vor Jahren gegeben hat. Ein Versprechen, das Verantwortung bedeutet.',
+		'Seine Recherchen führen von Afrika über Südtirol bis nach Deutschland, an Orte, die harmlos wirken und gerade deshalb so gefährlich sind. Hinter verschlossenen Türen verbinden sich Geld, Einfluss und Institutionen zu einem System, das sich selbst schützt. Ein Geflecht aus Macht, Abhängigkeit und Schweigen, in dem Menschen zu Zahlen werden und Leben verhandelbar sind.',
+	],
 };
 
 // Social-Media-Profile
