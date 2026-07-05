@@ -9,7 +9,7 @@ import Newsletter from '../components/Newsletter.astro';
 >
 	<section class="section">
 		<div class="container about-grid">
-			<img class="about-photo" src="/walter-uehli.jpg" alt="Walter Uehli" width="150" height="150" />
+			<img class="about-photo" src="/walter-uehli.jpg" alt="Walter Uehli, Autor" width="864" height="1184" />
 			<div class="intro">
 				<span class="eyebrow">Über mich</span>
 				<h1>Walter Uehli</h1>
@@ -74,11 +74,12 @@ import Newsletter from '../components/Newsletter.astro';
 		align-items: center;
 	}
 	.about-photo {
-		width: 200px;
-		height: 200px;
+		width: 300px;
+		aspect-ratio: 864 / 1184;
 		object-fit: cover;
-		border-radius: 50%;
-		border: 3px solid var(--border);
+		border-radius: 12px;
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow);
 	}
 	.intro {
 		max-width: 46ch;

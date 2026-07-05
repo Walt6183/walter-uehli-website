@@ -37,7 +37,7 @@ const posts = (await getCollection('blog'))
 	<!-- ÜBER-TEASER -->
 	<section class="section">
 		<div class="container about-teaser">
-			<img class="about-photo" src="/walter-uehli.jpg" alt="Walter Uehli" width="150" height="150" />
+			<img class="about-photo" src="/walter-uehli.jpg" alt="Walter Uehli, Autor" width="864" height="1184" />
 			<div class="about-text">
 				<span class="eyebrow">Der Autor</span>
 				<h2>Schönheit mit Abgrund</h2>
@@ -149,11 +149,12 @@ const posts = (await getCollection('blog'))
 		align-items: center;
 	}
 	.about-photo {
-		width: 190px;
-		height: 190px;
+		width: 280px;
+		aspect-ratio: 864 / 1184;
 		object-fit: cover;
-		border-radius: 50%;
-		border: 3px solid var(--border);
+		border-radius: 12px;
+		border: 1px solid var(--border);
+		box-shadow: var(--shadow);
 	}
 	.about-text {
 		max-width: 54ch;
