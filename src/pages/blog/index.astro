@@ -1,0 +1,128 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Newsletter from '../../components/Newsletter.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const [featured, ...rest] = posts;
+---
+
+<Base
+	title="Blog – Walter Uehli"
+	description="Autorenwerkstatt, Südtirol-Geschichten und Behind the Scenes: Einblicke in den Schreibprozess und die Fred-Huwiler-Reihe."
+>
+	<section class="section">
+		<div class="container">
+			<div class="blog-head prose">
+				<span class="eyebrow">Autorenwerkstatt</span>
+				<h1>Blog</h1>
+				<p class="lead">
+					Einblicke in den Schreibprozess, Geschichten von den Schauplätzen und der Weg zum
+					fertigen Thriller.
+				</p>
+			</div>
+
+			{
+				featured && (
+					<a href={`/blog/${featured.id}/`} class="card featured">
+						<div class="featured-body">
+							<FormattedDate date={featured.data.pubDate} />
+							<h2>{featured.data.title}</h2>
+							<p class="muted">{featured.data.description}</p>
+							<span class="readmore">Weiterlesen →</span>
+						</div>
+					</a>
+				)
+			}
+
+			<div class="post-grid">
+				{
+					rest.map((post) => (
+						<a href={`/blog/${post.id}/`} class="card post-card">
+							<div class="post-body">
+								<FormattedDate date={post.data.pubDate} />
+								<h3>{post.data.title}</h3>
+								<p class="muted">{post.data.description}</p>
+								<span class="readmore">Weiterlesen →</span>
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<Newsletter />
+</Base>
+
+<style>
+	.blog-head {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+	.blog-head .lead {
+		margin-inline: auto;
+		max-width: 52ch;
+	}
+	.featured {
+		display: block;
+		color: inherit;
+		margin-bottom: 1.5rem;
+		background: linear-gradient(135deg, var(--bg-elevated), var(--bg-soft));
+	}
+	.featured-body {
+		padding: 2.5rem;
+		max-width: 60ch;
+	}
+	.featured h2 {
+		margin: 0.4rem 0 0.6rem;
+	}
+	.post-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+	.post-card {
+		color: inherit;
+		display: flex;
+	}
+	.post-body {
+		padding: 1.6rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+	}
+	.post-body h3 {
+		margin: 0.2rem 0;
+		font-size: 1.15rem;
+	}
+	:global(time) {
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
+		color: var(--stone);
+		letter-spacing: 0.03em;
+	}
+	.post-body p,
+	.featured p {
+		font-size: 0.95rem;
+		margin: 0;
+	}
+	.readmore {
+		margin-top: 0.8rem;
+		font-family: var(--font-sans);
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--accent-hover);
+	}
+	@media (max-width: 900px) {
+		.post-grid {
+			grid-template-columns: 1fr;
+		}
+		.featured-body {
+			padding: 1.75rem;
+		}
+	}
+</style>

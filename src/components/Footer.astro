@@ -1,0 +1,107 @@
+---
+import { SITE_TITLE, SITE_TAGLINE, AUTHOR, NAV } from '../consts';
+import SocialIcons from './SocialIcons.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container footer-grid">
+		<div class="footer-brand">
+			<span class="brand-name">{SITE_TITLE}</span>
+			<p class="muted">{SITE_TAGLINE} · Die Fred-Huwiler-Reihe.</p>
+			<SocialIcons size={20} />
+		</div>
+
+		<nav class="footer-nav" aria-label="Footer-Navigation">
+			<h4>Navigation</h4>
+			{NAV.map((item) => <a href={item.href}>{item.label}</a>)}
+		</nav>
+
+		<div class="footer-contact">
+			<h4>Kontakt</h4>
+			<a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
+			<a href={`tel:${AUTHOR.phoneHref}`}>{AUTHOR.phone}</a>
+		</div>
+	</div>
+
+	<div class="container footer-bottom">
+		<span>&copy; {year} {AUTHOR.name}. Alle Rechte vorbehalten.</span>
+		<span class="legal">
+			<a href="/impressum">Impressum</a>
+			<a href="/datenschutz">Datenschutz</a>
+		</span>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--border);
+		background: var(--bg-soft);
+		padding-block: 3.5rem 2rem;
+		margin-top: 2rem;
+	}
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 2fr 1fr 1fr;
+		gap: 2.5rem;
+	}
+	.brand-name {
+		font-family: var(--font-serif);
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+	.footer-brand p {
+		margin: 0.4rem 0 1rem;
+		max-width: 34ch;
+	}
+	.footer-nav,
+	.footer-contact {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	h4 {
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--text-faint);
+		margin-bottom: 0.6rem;
+	}
+	.footer-nav a,
+	.footer-contact a {
+		color: var(--text-muted);
+		font-size: 0.95rem;
+	}
+	.footer-nav a:hover,
+	.footer-contact a:hover {
+		color: var(--text);
+	}
+	.footer-bottom {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 3rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border);
+		font-size: 0.85rem;
+		color: var(--text-faint);
+	}
+	.legal {
+		display: flex;
+		gap: 1.25rem;
+	}
+	.legal a {
+		color: var(--text-faint);
+	}
+	.legal a:hover {
+		color: var(--text-muted);
+	}
+	@media (max-width: 720px) {
+		.footer-grid {
+			grid-template-columns: 1fr;
+			gap: 2rem;
+		}
+	}
+</style>

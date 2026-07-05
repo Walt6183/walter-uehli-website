@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { AUTHOR } from '../consts';
+---
+
+<Base title="Impressum – Walter Uehli" description="Impressum und Anbieterkennzeichnung.">
+	<section class="section">
+		<div class="container prose">
+			<h1>Impressum</h1>
+			<p><strong>Verantwortlich für den Inhalt</strong></p>
+			<p>
+				Walter Uehli<br />
+				{/* TODO: vollständige Adresse aus bestehendem Impressum übernehmen */}
+				[Strasse und Hausnummer]<br />
+				[PLZ Ort], Schweiz
+			</p>
+			<p>
+				E-Mail: <a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a><br />
+				Telefon: <a href={`tel:${AUTHOR.phoneHref}`}>{AUTHOR.phone}</a>
+			</p>
+			<p class="muted">
+				Hinweis: Bitte die vollständigen Angaben aus dem bestehenden Impressum von
+				walter-uehli.ch übernehmen.
+			</p>
+		</div>
+	</section>
+</Base>

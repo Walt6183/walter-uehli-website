@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+import SocialIcons from '../components/SocialIcons.astro';
+import { AUTHOR } from '../consts';
+
+// Formular-Endpunkt: bei Formspree/Netlify Forms eintragen (siehe README).
+const FORM_ACTION = '#';
+---
+
+<Base
+	title="Kontakt – Walter Uehli"
+	description="Nimm Kontakt mit Walter Uehli auf oder bewirb dich als Testleser:in für den kommenden Thriller."
+>
+	<section class="section">
+		<div class="container head prose">
+			<span class="eyebrow">Kontakt</span>
+			<h1>Schreib mir</h1>
+			<p class="lead">
+				Ob Rückmeldung zu einem Beitrag, eine Presseanfrage oder einfach ein Hallo – ich
+				lese jede Nachricht. Und wer den nächsten Thriller vor allen anderen lesen möchte,
+				bewirbt sich weiter unten als Testleser:in.
+			</p>
+			<div class="direct">
+				<a href={`mailto:${AUTHOR.email}`}>{AUTHOR.email}</a>
+				<a href={`tel:${AUTHOR.phoneHref}`}>{AUTHOR.phone}</a>
+			</div>
+			<SocialIcons size={22} />
+		</div>
+	</section>
+
+	<section class="section forms">
+		<div class="container form-grid">
+			<!-- Kontaktformular -->
+			<form class="card form" action={FORM_ACTION} method="post">
+				<h2>Nachricht senden</h2>
+				<div class="field">
+					<label for="name">Name</label>
+					<input id="name" name="name" type="text" required />
+				</div>
+				<div class="field">
+					<label for="email">E-Mail</label>
+					<input id="email" name="email" type="email" required />
+				</div>
+				<div class="field">
+					<label for="message">Nachricht</label>
+					<textarea id="message" name="message" required></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">Absenden</button>
+			</form>
+
+			<!-- Testleser-Bewerbung -->
+			<form class="card form" action={FORM_ACTION} method="post">
+				<h2>Testleser:in werden</h2>
+				<p class="muted small">
+					Du bekommst das Manuskript vorab und gibst mir ehrliche Rückmeldung.
+				</p>
+				<div class="field">
+					<label for="tl-name">Name</label>
+					<input id="tl-name" name="name" type="text" required />
+				</div>
+				<div class="field">
+					<label for="tl-email">E-Mail</label>
+					<input id="tl-email" name="email" type="email" required />
+				</div>
+				<div class="field">
+					<label for="tl-motivation">Warum möchtest du Testleser:in werden?</label>
+					<textarea id="tl-motivation" name="motivation"></textarea>
+				</div>
+				<div class="field-row">
+					<div class="field">
+						<label for="tl-type">Was liest du am liebsten?</label>
+						<select id="tl-type" name="lesertyp">
+							<option>Thriller / Krimi</option>
+							<option>Spannung allgemein</option>
+							<option>Querbeet</option>
+						</select>
+					</div>
+					<div class="field">
+						<label for="tl-format">Format</label>
+						<select id="tl-format" name="format">
+							<option>E-Book (PDF/EPUB)</option>
+							<option>Gedruckt</option>
+							<option>Egal</option>
+						</select>
+					</div>
+				</div>
+				<div class="field checkbox">
+					<label class="check">
+						<input type="checkbox" name="vertraulichkeit" required />
+						<span>Ich behandle das Manuskript vertraulich.</span>
+					</label>
+				</div>
+				<button type="submit" class="btn btn-primary">Bewerbung senden</button>
+			</form>
+		</div>
+	</section>
+</Base>
+
+<style>
+	.head {
+		text-align: center;
+	}
+	.head .lead {
+		margin-inline: auto;
+		max-width: 54ch;
+	}
+	.direct {
+		display: flex;
+		gap: 1.5rem;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin: 1.5rem 0 1rem;
+		font-family: var(--font-serif);
+		font-size: 1.15rem;
+	}
+	.head :global(.social-icons) {
+		justify-content: center;
+	}
+	.forms {
+		padding-top: 0;
+	}
+	.form-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+		align-items: start;
+	}
+	.form {
+		padding: 2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	.form h2 {
+		margin: 0;
+	}
+	.form .small {
+		font-size: 0.9rem;
+		margin: -0.4rem 0 0;
+	}
+	.field-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+	}
+	.check {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.6rem;
+		font-weight: 400;
+		color: var(--text-muted);
+		text-transform: none;
+		letter-spacing: 0;
+		font-size: 0.9rem;
+	}
+	.check input {
+		width: auto;
+		margin-top: 0.2rem;
+	}
+	@media (max-width: 820px) {
+		.form-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

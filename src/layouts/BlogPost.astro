@@ -1,0 +1,57 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+---
+
+<Base title={`${title} – Walter Uehli`} description={description} type="article" publishedTime={pubDate}>
+	<article class="section">
+		<div class="container">
+			<div class="post-head prose">
+				<a href="/blog" class="back">← Zurück zum Blog</a>
+				<div class="post-date meta">
+					<FormattedDate date={pubDate} />
+					{updatedDate && <span> · aktualisiert am <FormattedDate date={updatedDate} /></span>}
+				</div>
+				<h1>{title}</h1>
+			</div>
+			<div class="prose post-content">
+				<slot />
+			</div>
+		</div>
+	</article>
+</Base>
+
+<style>
+	.post-head {
+		text-align: center;
+		margin-bottom: 2.5rem;
+	}
+	.back {
+		display: inline-block;
+		font-family: var(--font-sans);
+		font-size: 0.9rem;
+		color: var(--text-muted);
+		margin-bottom: 1.5rem;
+	}
+	.back:hover {
+		color: var(--text);
+	}
+	.post-date {
+		margin-bottom: 0.75rem;
+	}
+	.post-head h1 {
+		margin: 0;
+	}
+	.post-content :global(p:first-of-type) {
+		font-size: 1.15rem;
+		color: var(--text);
+	}
+	.post-content :global(em) {
+		color: var(--text-faint);
+	}
+</style>

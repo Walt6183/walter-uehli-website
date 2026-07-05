@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+
+<Base
+	title="Über mich – Walter Uehli"
+	description="Walter Uehli, geboren 1961 in Zürich, aufgewachsen in Davos. Über den Weg zum Schreiben, die Fred-Huwiler-Reihe und atmosphärische Thriller zwischen Schweiz und Südtirol."
+>
+	<section class="section">
+		<div class="container about-grid">
+			<img class="about-photo" src="/walter-uehli.jpg" alt="Walter Uehli" width="150" height="150" />
+			<div class="intro">
+				<span class="eyebrow">Über mich</span>
+				<h1>Walter Uehli</h1>
+				<p class="lead">
+					Ich schreibe atmosphärische Thriller über Menschen, die an ihre Grenzen kommen –
+					und über die Landschaft, die das mit ihnen macht.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section-narrow">
+		<div class="container prose">
+			<p>
+				Walter Uehli, geboren 1961 in Zürich, aufgewachsen in Davos, schreibt atmosphärische
+				Thriller, die zwischen der Schweiz und Südtirol spielen. Mit 30 Jahren Erfahrung in
+				Sozialarbeit und systemischer Beratung bringt er eine psychologische Tiefe in seine
+				Figuren, die reine Genre-Autoren selten erreichen.
+			</p>
+			<p>
+				Allen voran <strong>Fred Huwiler</strong>, der in Band 1 als Ermittler bei der
+				Kriminalpolizei Aargau antritt und ab Band 2 als Berater an der Seite von Commissario
+				Elena Adores (de Rosa) in Südtirol ermittelt. Die Fred-Huwiler-Reihe verbindet die
+				Schönheit der Südtiroler Bergwelt mit packender Spannung und gesellschaftspolitischer
+				Schärfe.
+			</p>
+
+			<h2>Warum Thriller?</h2>
+			<p>
+				Weil in der Ausnahmesituation sichtbar wird, wer ein Mensch wirklich ist. Ein guter
+				Thriller stellt Fragen, die bleiben: Wie weit würde ich gehen? Woran erkenne ich das
+				Böse, wenn es freundlich lächelt? Spannung entsteht bei mir durch Stimmung, Landschaft
+				und Charakter – nicht durch Blut.
+			</p>
+
+			<h2>Wie ich arbeite</h2>
+			<p>
+				Ich recherchiere gründlich, gehe die Schauplätze ab und lasse mir Zeit, bis eine Figur
+				zu atmen beginnt. Über diesen Weg – vom ersten Einfall bis zum fertigen Manuskript –
+				schreibe ich regelmässig in meinem <a href="/blog">Blog</a>.
+			</p>
+
+			<h2>Bleib in Kontakt</h2>
+			<p>
+				Wenn du wissen willst, wann das nächste Buch erscheint, oder einen Blick hinter die
+				Kulissen werfen möchtest: Abonniere die <a href="#newsletter">Tatort-Post</a> oder
+				folge mir auf Social Media. Über <a href="/kontakt">Nachrichten von Leserinnen und
+				Lesern</a> freue ich mich immer.
+			</p>
+		</div>
+	</section>
+
+	<div id="newsletter"></div>
+	<Newsletter />
+</Base>
+
+<style>
+	.about-grid {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 2.5rem;
+		align-items: center;
+	}
+	.about-photo {
+		width: 200px;
+		height: 200px;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 3px solid var(--border);
+	}
+	.intro {
+		max-width: 46ch;
+	}
+	.section-narrow {
+		padding-bottom: clamp(3rem, 7vw, 5rem);
+	}
+	@media (max-width: 720px) {
+		.about-grid {
+			grid-template-columns: 1fr;
+			justify-items: center;
+			text-align: center;
+			gap: 1.5rem;
+		}
+	}
+</style>

@@ -1,0 +1,25 @@
+---
+// Buchcover / E-Book-Mockup. Standardbild liegt in /public/cover.png (transparent).
+import { BOOK } from '../consts';
+const { image = '/cover.png' } = Astro.props;
+---
+
+<div class="book">
+	<img src={image} alt={`Buchcover: ${BOOK.title}`} width="1080" height="1080" loading="eager" />
+</div>
+
+<style>
+	.book {
+		width: 100%;
+		max-width: 420px;
+		filter: drop-shadow(0 30px 45px rgba(0, 0, 0, 0.55));
+		transition: transform 0.4s ease;
+	}
+	.book:hover {
+		transform: translateY(-6px);
+	}
+	.book img {
+		width: 100%;
+		height: auto;
+	}
+</style>

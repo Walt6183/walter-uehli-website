@@ -1,0 +1,134 @@
+---
+import Base from '../layouts/Base.astro';
+import BookCover from '../components/BookCover.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { BOOK } from '../consts';
+
+const facts = [
+	{ label: 'Reihe', value: 'Fred Huwiler · Band 1' },
+	{ label: 'Genre', value: 'Kriminalthriller' },
+	{ label: 'Schauplatz', value: 'Schweiz / Kanton Aargau' },
+	{ label: 'Erscheint', value: BOOK.releaseLabel },
+];
+---
+
+<Base
+	title={`${BOOK.title} – ${BOOK.series} | Walter Uehli`}
+	description={BOOK.blurb}
+>
+	<section class="section book-hero">
+		<div class="container book-grid">
+			<div class="book-visual">
+				<BookCover />
+			</div>
+			<div>
+				<span class="eyebrow">{BOOK.series} · {BOOK.releaseLabel}</span>
+				<h1>{BOOK.title}</h1>
+				<p class="lead">{BOOK.tagline}</p>
+				<p class="muted">{BOOK.blurb}</p>
+
+				<ul class="facts">
+					{facts.map((f) => (
+						<li>
+							<span class="fact-label meta">{f.label}</span>
+							<span class="fact-value">{f.value}</span>
+						</li>
+					))}
+				</ul>
+
+				<div class="actions">
+					<a href="#newsletter" class="btn btn-primary">Erscheinungstermin nicht verpassen</a>
+					<a href="/kontakt" class="btn btn-ghost">Testleser:in werden</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container prose">
+			<h2>Worum es geht</h2>
+			<p>
+				In den Schweizer Bergen verschwindet über Nacht ein Patient – ohne Spur, ohne Zeugen,
+				ohne Erklärung. Was wie ein Einzelfall aussieht, entpuppt sich für
+				<strong>Fred Huwiler</strong>, Ermittler bei der Kriminalpolizei Aargau, als loser
+				Faden an einem Netz aus Schweigen, Geld und Verrat.
+			</p>
+			<blockquote>
+				Hinter der Postkarten-Idylle lauert Dunkles.
+			</blockquote>
+			<p>
+				<em>Huwiler und der Organhandel</em> ist der Auftakt einer Thriller-Reihe über einen
+				Ermittler, der zu genau hinsieht – und über eine Welt, in der der Wert eines Menschen
+				plötzlich in Ersatzteilen gemessen wird.
+			</p>
+
+			<h2>Die Reihe</h2>
+			<p>
+				Fred Huwiler ist kein makelloser Held. Er ist bodenständig, eigensinnig und getrieben
+				von einem Gerechtigkeitssinn, der ihm immer wieder im Weg steht. In Band 1 ermittelt er
+				noch in der Schweiz; ab Band 2 verschlägt es ihn als Berater an die Seite von
+				Commissario Elena Adores (de Rosa) nach Südtirol – in Fälle, die tief in die
+				politischen und historischen Verwerfungen der Region führen.
+			</p>
+		</div>
+	</section>
+
+	<div id="newsletter"></div>
+	<Newsletter />
+</Base>
+
+<style>
+	.book-hero {
+		padding-top: clamp(2.5rem, 5vw, 4rem);
+	}
+	.book-grid {
+		display: grid;
+		grid-template-columns: 0.85fr 1.15fr;
+		gap: 3.5rem;
+		align-items: center;
+	}
+	.book-visual {
+		display: flex;
+		justify-content: center;
+	}
+	.facts {
+		list-style: none;
+		padding: 0;
+		margin: 2rem 0;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem 2rem;
+		border-top: 1px solid var(--border);
+		border-bottom: 1px solid var(--border);
+		padding-block: 1.5rem;
+	}
+	.facts li {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+	}
+	.fact-label {
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.72rem;
+	}
+	.fact-value {
+		font-family: var(--font-serif);
+		font-size: 1.05rem;
+		color: var(--text);
+	}
+	.actions {
+		display: flex;
+		gap: 0.9rem;
+		flex-wrap: wrap;
+	}
+	@media (max-width: 900px) {
+		.book-grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+		.book-visual {
+			order: -1;
+		}
+	}
+</style>

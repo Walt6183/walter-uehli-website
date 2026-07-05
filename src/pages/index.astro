@@ -1,0 +1,242 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import BookCover from '../components/BookCover.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { SITE_TITLE, SITE_DESCRIPTION, BOOK, CLAIM } from '../consts';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3);
+---
+
+<Base title={`${SITE_TITLE} – Atmosphärische Thriller zwischen Schweiz und Südtirol`} description={SITE_DESCRIPTION}>
+	<!-- HERO -->
+	<section class="hero">
+		<div class="container hero-grid">
+			<div class="hero-copy">
+				<span class="eyebrow">{BOOK.series} · {BOOK.releaseLabel}</span>
+				<h1>{CLAIM}</h1>
+				<p class="lead">
+					<strong class="book-title">{BOOK.title}</strong> – {BOOK.tagline}
+				</p>
+				<p class="muted hero-blurb">{BOOK.blurb}</p>
+				<div class="hero-actions">
+					<a href="/das-buch" class="btn btn-primary">Jetzt reinlesen</a>
+					<a href="#newsletter" class="btn btn-ghost">Tatort-Post abonnieren</a>
+				</div>
+			</div>
+			<div class="hero-book">
+				<BookCover />
+				<span class="release-badge">Erscheint {BOOK.releaseLabel}</span>
+			</div>
+		</div>
+	</section>
+
+	<!-- ÜBER-TEASER -->
+	<section class="section">
+		<div class="container about-teaser">
+			<img class="about-photo" src="/walter-uehli.jpg" alt="Walter Uehli" width="150" height="150" />
+			<div class="about-text">
+				<span class="eyebrow">Der Autor</span>
+				<h2>Schönheit mit Abgrund</h2>
+				<p>
+					Walter Uehli schreibt atmosphärische Thriller, die zwischen der Schweiz und Südtirol
+					spielen. Im Zentrum steht Fred Huwiler – erst Ermittler bei der Kriminalpolizei
+					Aargau, später Berater der Südtiroler Polizei. Ein Held mit Pragmatismus, Ecken und
+					menschlichen Schwächen, der sieht, was andere übersehen.
+				</p>
+				<a href="/uber-mich" class="btn btn-ghost">Mehr über mich</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- BLOG-VORSCHAU -->
+	<section class="section blog-preview">
+		<div class="container">
+			<div class="section-head">
+				<div>
+					<span class="eyebrow">Aus der Autorenwerkstatt</span>
+					<h2>Blog</h2>
+				</div>
+				<a href="/blog" class="btn btn-ghost">Alle Beiträge</a>
+			</div>
+			<div class="post-grid">
+				{
+					posts.map((post) => (
+						<a href={`/blog/${post.id}/`} class="card post-card">
+							<div class="post-body">
+								<FormattedDate date={post.data.pubDate} />
+								<h3>{post.data.title}</h3>
+								<p class="muted">{post.data.description}</p>
+								<span class="readmore">Weiterlesen →</span>
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<div id="newsletter"></div>
+	<Newsletter />
+</Base>
+
+<style>
+	.hero {
+		padding-block: clamp(3rem, 7vw, 5.5rem);
+	}
+	.hero-grid {
+		display: grid;
+		grid-template-columns: 1.15fr 0.85fr;
+		gap: 3.5rem;
+		align-items: center;
+	}
+	.hero-copy h1 {
+		font-size: clamp(2rem, 4.4vw, 3rem);
+		max-width: 16ch;
+	}
+	.book-title {
+		font-family: var(--font-serif);
+		font-style: italic;
+		font-weight: 600;
+	}
+	.hero-blurb {
+		max-width: 52ch;
+		margin-top: 1.2rem;
+	}
+	.hero-actions {
+		display: flex;
+		gap: 0.9rem;
+		flex-wrap: wrap;
+		margin-top: 2rem;
+	}
+	.hero-book {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1.4rem;
+	}
+	.hero-book::before {
+		content: '';
+		position: absolute;
+		top: 40%;
+		left: 50%;
+		width: 115%;
+		aspect-ratio: 1;
+		transform: translate(-50%, -50%);
+		background: radial-gradient(circle, rgba(245, 242, 239, 0.09), transparent 68%);
+		z-index: -1;
+		pointer-events: none;
+	}
+	.release-badge {
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--text-muted);
+		border: 1px solid var(--border);
+		border-radius: 999px;
+		padding: 0.35rem 1rem;
+	}
+
+	.about-teaser {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 2.5rem;
+		align-items: center;
+	}
+	.about-photo {
+		width: 190px;
+		height: 190px;
+		object-fit: cover;
+		border-radius: 50%;
+		border: 3px solid var(--border);
+	}
+	.about-text {
+		max-width: 54ch;
+	}
+	.about-text .btn {
+		margin-top: 1rem;
+	}
+
+	.blog-preview {
+		background: var(--bg-soft);
+		border-top: 1px solid var(--border);
+	}
+	.section-head {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1.5rem;
+		margin-bottom: 2.5rem;
+	}
+	.section-head h2 {
+		margin: 0;
+	}
+	.post-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.5rem;
+	}
+	.post-card {
+		color: inherit;
+		display: flex;
+	}
+	.post-body {
+		padding: 1.6rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	.post-body :global(time) {
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
+		color: var(--stone);
+		letter-spacing: 0.03em;
+	}
+	.post-body h3 {
+		margin: 0.2rem 0;
+		font-size: 1.2rem;
+	}
+	.post-body p {
+		font-size: 0.95rem;
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+	.readmore {
+		margin-top: 0.8rem;
+		font-family: var(--font-sans);
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--accent-hover);
+	}
+
+	@media (max-width: 900px) {
+		.hero-grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+		.hero-book {
+			order: -1;
+		}
+		.about-teaser {
+			grid-template-columns: 1fr;
+			justify-items: center;
+			text-align: center;
+			gap: 1.5rem;
+		}
+		.post-grid {
+			grid-template-columns: 1fr;
+		}
+		.section-head {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+	}
+</style>

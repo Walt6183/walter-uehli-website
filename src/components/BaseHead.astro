@@ -1,0 +1,76 @@
+---
+// Globaler <head>: Meta, OpenGraph, Twitter-Cards, Fonts, JSON-LD.
+import '../styles/global.css';
+import { Font } from 'astro:assets';
+import { SITE_TITLE, SITE_URL, AUTHOR } from '../consts';
+
+interface Props {
+	title: string;
+	description: string;
+	image?: string;
+	type?: 'website' | 'article';
+	publishedTime?: Date;
+}
+
+const {
+	title,
+	description,
+	image = '/og-default.jpg',
+	type = 'website',
+	publishedTime,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? SITE_URL);
+const socialImage = new URL(image, Astro.site ?? SITE_URL);
+
+const personSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	name: AUTHOR.name,
+	jobTitle: 'Schriftsteller',
+	url: SITE_URL,
+	email: AUTHOR.email,
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#1a1a1a" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link
+	rel="alternate"
+	type="application/rss+xml"
+	title={SITE_TITLE}
+	href={new URL('rss.xml', Astro.site ?? SITE_URL)}
+/>
+<meta name="generator" content={Astro.generator} />
+
+<Font cssVariable="--font-display" preload />
+<Font cssVariable="--font-serif" preload />
+<Font cssVariable="--font-sans" />
+
+<link rel="canonical" href={canonicalURL} />
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="author" content={AUTHOR.name} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={socialImage} />
+<meta property="og:locale" content="de_CH" />
+<meta property="og:site_name" content={SITE_TITLE} />
+{publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={socialImage} />
+
+<script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
