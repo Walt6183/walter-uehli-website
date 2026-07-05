@@ -38,6 +38,16 @@ export const SOCIAL = {
 	whatsapp: 'https://wa.me/41791008446',
 };
 
+// Formulare (Kontakt & Testleser)
+// Standard: PHP-Handler auf dem Hostinger-Server (public/kontakt.php → dist/kontakt.php).
+// Alternative: eine Formspree-URL eintragen (z. B. 'https://formspree.io/f/XXXX').
+export const FORM_ENDPOINT = '/kontakt.php';
+
+// Newsletter (CleverReach). Aktuell: Verlinkung auf das bestehende CleverReach-Anmeldeformular.
+// Optional später durch ein eingebettetes CleverReach-Formular ersetzen.
+export const NEWSLETTER_URL =
+	'https://flow.cleverreach.com/fl/a7211b99-8f77-4bfe-ba60-12d1465fb08a/';
+
 // Hauptnavigation (deutsche Slugs – kompatibel zur bestehenden Seitenstruktur)
 export const NAV = [
 	{ href: '/', label: 'Start' },

@@ -1,6 +1,7 @@
 ---
-// Newsletter-Anmeldung («Tatort-Post», CI). Das `action`-Attribut muss noch mit
-// dem echten Anbieter (Brevo/Mailchimp) verbunden werden – siehe ANLEITUNG.md.
+// Newsletter «Tatort-Post» – Anmeldung über CleverReach.
+// Aktuell: Button verlinkt auf das bestehende CleverReach-Anmeldeformular.
+import { NEWSLETTER_URL } from '../consts';
 const { compact = false } = Astro.props;
 ---
 
@@ -15,16 +16,12 @@ const { compact = false } = Astro.props;
 				abbestellbar.
 			</p>
 		</div>
-		<form class="nl-form" action="#" method="post" data-newsletter>
-			<div class="fields">
-				<label class="sr-only" for="nl-name">Vorname</label>
-				<input id="nl-name" name="vorname" type="text" placeholder="Vorname" autocomplete="given-name" />
-				<label class="sr-only" for="nl-email">E-Mail</label>
-				<input id="nl-email" name="email" type="email" required placeholder="deine@email.ch" autocomplete="email" />
-				<button class="btn btn-primary" type="submit">Abonnieren</button>
-			</div>
-			<p class="hint muted">Mit der Anmeldung stimmst du der Datenschutzerklärung zu.</p>
-		</form>
+		<div class="nl-action">
+			<a class="btn btn-primary" href={NEWSLETTER_URL} target="_blank" rel="noopener noreferrer">
+				Tatort-Post abonnieren
+			</a>
+			<p class="hint muted">Anmeldung über CleverReach · jederzeit abbestellbar</p>
+		</div>
 	</div>
 </section>
 
@@ -37,7 +34,7 @@ const { compact = false } = Astro.props;
 	}
 	.inner {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 1.4fr 1fr;
 		gap: 3rem;
 		align-items: center;
 	}
@@ -48,20 +45,15 @@ const { compact = false } = Astro.props;
 		margin: 0;
 		max-width: 46ch;
 	}
-	.fields {
+	.nl-action {
 		display: flex;
-		gap: 0.6rem;
-		flex-wrap: wrap;
-	}
-	.fields input {
-		flex: 1 1 180px;
-	}
-	.fields .btn {
-		flex: 0 0 auto;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.75rem;
 	}
 	.hint {
 		font-size: 0.8rem;
-		margin: 0.75rem 0 0;
+		margin: 0;
 	}
 	.compact .inner {
 		grid-template-columns: 1fr;
@@ -71,13 +63,16 @@ const { compact = false } = Astro.props;
 	.compact .nl-copy p {
 		margin-inline: auto;
 	}
-	.compact .fields {
-		justify-content: center;
+	.compact .nl-action {
+		align-items: center;
 	}
 	@media (max-width: 820px) {
 		.inner {
 			grid-template-columns: 1fr;
 			gap: 1.75rem;
+		}
+		.nl-action {
+			align-items: flex-start;
 		}
 	}
 </style>
