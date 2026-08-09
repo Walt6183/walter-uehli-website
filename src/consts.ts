@@ -36,7 +36,7 @@ export const BOOK = {
 // Social-Media-Profile
 export const SOCIAL = {
 	instagram: 'https://www.instagram.com/walter.uehli.autor/',
-	facebook: 'https://www.facebook.com/',
+	facebook: 'https://www.facebook.com/walter.uehli.autor/',
 	linkedin: 'https://www.linkedin.com/in/walter-uehli',
 	whatsapp: 'https://wa.me/41791008446',
 };

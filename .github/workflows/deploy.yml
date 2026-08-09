@@ -1,0 +1,35 @@
+name: Build & Deploy zu Hostinger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code holen
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Abhaengigkeiten installieren
+        run: npm ci
+
+      - name: Website bauen
+        run: npm run build
+
+      - name: Auf Hostinger hochladen (sshpass + rsync)
+        env:
+          SSHPASS: ${{ secrets.HOSTINGER_SSH_PASS }}
+        run: |
+          sudo apt-get install -y sshpass rsync
+          sshpass -e rsync -avzr --delete \
+            -e "ssh -p 65002 -o StrictHostKeyChecking=no" \
+            dist/ \
+            u656131269@92.113.18.95:/home/u656131269/domains/blanchedalmond-wolf-539390.hostingersite.com/public_html/
