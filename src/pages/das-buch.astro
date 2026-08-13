@@ -8,7 +8,7 @@ const facts = [
 	{ label: 'Reihe', value: 'Fred Huwiler · Band 1' },
 	{ label: 'Genre', value: 'Kriminalthriller' },
 	{ label: 'Schauplatz', value: 'Südtirol · Afrika · Deutschland' },
-	{ label: 'Erscheint', value: BOOK.releaseDate },
+	{ label: 'Erschienen am', value: BOOK.releaseDate },
 ];
 ---
 
@@ -22,7 +22,7 @@ const facts = [
 				<BookCover />
 			</div>
 			<div>
-				<span class="eyebrow">{BOOK.series} · Erscheint {BOOK.releaseDate}</span>
+				<span class="eyebrow">{BOOK.series} · Erschienen am {BOOK.releaseDate}</span>
 				<h1>{BOOK.title}</h1>
 				<p class="lead">{BOOK.tagline}</p>
 
@@ -36,7 +36,7 @@ const facts = [
 				</ul>
 
 				<div class="actions">
-					<a href="#newsletter" class="btn btn-primary">Erscheinungstermin nicht verpassen</a>
+					<a href="#newsletter" class="btn btn-primary">Jetzt bestellen</a>
 					<a href="/kontakt" class="btn btn-ghost">Testleser:in werden</a>
 				</div>
 			</div>
@@ -48,7 +48,7 @@ const facts = [
 			<h2>Worum es geht</h2>
 			{BOOK.blurbParagraphs.map((p) => <p>{p}</p>)}
 
-			<p class="release-line">Erscheint am {BOOK.releaseDate}.</p>
+			<p class="release-line">Erschienen am {BOOK.releaseDate}.</p>
 
 			<h2>Die Reihe</h2>
 			<p>

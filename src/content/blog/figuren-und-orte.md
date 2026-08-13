@@ -1,6 +1,6 @@
 ---
 title: "Bald ist es so weit: Ich stelle dir meine Figuren und Orte vor"
-description: "Ein Thriller lebt von seinen Figuren und den Orten, an denen sie sich bewegen. Anfang Juli erscheint mein neuer Roman «Huwiler und der Organhandel», und bis …"
+description: "Ein Thriller lebt von seinen Figuren und den Orten, an denen sie sich bewegen. Seit Juli 2026 ist mein Roman «Huwiler und der Organhandel» erhältlich."
 pubDate: 2026-04-22
 ---
 
@@ -8,11 +8,11 @@ pubDate: 2026-04-22
 
 **Ein Thriller lebt von seinen Figuren und den Orten, an denen sie sich bewegen.**
 
-Anfang Juli erscheint mein neuer Roman *«Huwiler und der Organhandel»*, und bis dahin möchte ich dir einen kleinen Blick hinter die Kulissen schenken. Ich nehme dich mit auf eine Vorstellungsrunde.
+Seit Juli 2026 ist mein Roman *«Huwiler und der Organhandel»* erhältlich, und bis dahin möchte ich dir einen kleinen Blick hinter die Kulissen schenken. Ich nehme dich mit auf eine Vorstellungsrunde.
 
 ## Was dich in den nächsten Wochen erwartet
 
-Bevor der Roman im Juli erscheint, möchte ich dir einige dieser Figuren und Orte vorstellen. In unregelmässigen Abständen werde ich hier im Blog und zeitgleich auf Instagram eine Art Vorstellungsrunde veröffentlichen. Keine trockenen Steckbriefe, sondern persönliche Einblicke: Wie eine Figur entstanden ist, was einen Ort besonders macht, welche Geschichte sich dahinter verbirgt.
+In diesem Beitrag stelle ich dir einige der Figuren und Orte aus dem Roman vor. In unregelmässigen Abständen werde ich hier im Blog und zeitgleich auf Instagram eine Art Vorstellungsrunde veröffentlichen. Keine trockenen Steckbriefe, sondern persönliche Einblicke: Wie eine Figur entstanden ist, was einen Ort besonders macht, welche Geschichte sich dahinter verbirgt.
 
 Die Geschichte von *«Huwiler und der Organhandel»* spielt an Orten, die mir sehr am Herzen liegen, und wird von Figuren getragen, die mir über Monate hinweg ans Herz gewachsen sind. Manche davon habe ich sofort vor Augen gehabt, andere haben sich erst im Laufe des Schreibens entwickelt, verändert, mir manchmal sogar widersprochen.
 
