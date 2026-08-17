@@ -1,7 +1,6 @@
 ---
 // Newsletter «Tatort-Post» – Anmeldung über CleverReach.
-// Aktuell: Button verlinkt auf das bestehende CleverReach-Anmeldeformular.
-import { NEWSLETTER_URL } from '../consts';
+// Button führt auf die eigene Newsletter-Seite (/newsletter) mit eingebettetem Formular.
 const { compact = false } = Astro.props;
 ---
 
@@ -17,7 +16,7 @@ const { compact = false } = Astro.props;
 			</p>
 		</div>
 		<div class="nl-action">
-			<a class="btn btn-primary" href={NEWSLETTER_URL} target="_blank" rel="noopener noreferrer">
+			<a class="btn btn-primary" href="/newsletter">
 				Tatort-Post abonnieren
 			</a>
 			<p class="hint muted">Anmeldung über CleverReach · jederzeit abbestellbar</p>
