@@ -32,6 +32,7 @@ import { AUTHOR, FORM_ENDPOINT } from '../consts';
 				<h2>Nachricht senden</h2>
 				<input type="hidden" name="_form" value="Kontakt" />
 				<input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+				<input type="hidden" name="_ts" class="ts-field" />
 				<div class="field">
 					<label for="name">Name</label>
 					<input id="name" name="name" type="text" required />
@@ -56,6 +57,7 @@ import { AUTHOR, FORM_ENDPOINT } from '../consts';
 				</p>
 				<input type="hidden" name="_form" value="Testleser" />
 				<input type="text" name="_gotcha" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+				<input type="hidden" name="_ts" class="ts-field" />
 				<div class="field">
 					<label for="tl-name">Name</label>
 					<input id="tl-name" name="name" type="text" required />
@@ -234,5 +236,10 @@ import { AUTHOR, FORM_ENDPOINT } from '../consts';
 				if (btn) btn.disabled = false;
 			}
 		});
+	});
+
+	// Timing-Feld beim Laden setzen (Spam-Schutz)
+	document.querySelectorAll<HTMLInputElement>('.ts-field').forEach((el) => {
+		el.value = String(Math.floor(Date.now() / 1000));
 	});
 </script>
