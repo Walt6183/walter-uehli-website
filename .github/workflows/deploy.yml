@@ -25,12 +25,12 @@ jobs:
       - name: Website bauen
         run: npm run build
 
-      - name: Auf Hostinger hochladen (sshpass + rsync)
-        env:
-          SSHPASS: ${{ secrets.HOSTINGER_SSH_PASS }}
-        run: |
-          sudo apt-get install -y sshpass rsync
-          sshpass -e rsync -avzr --delete \
-            -e "ssh -p 65002 -o StrictHostKeyChecking=no" \
-            dist/ \
-            u656131269@92.113.18.95:/home/u656131269/domains/blanchedalmond-wolf-539390.hostingersite.com/public_html/
+      - name: Auf Hostinger hochladen (FTP)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 92.113.18.95
+          username: u656131269
+          password: ${{ secrets.HOSTINGER_FTP_PASS }}
+          local-dir: ./dist/
+          server-dir: /public_html/
+          dangerous-clean-slate: true
