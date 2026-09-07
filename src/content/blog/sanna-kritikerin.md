@@ -28,14 +28,6 @@ Menschliche Testleser sind wertvoll. Aber sie haben Erwartungen. Sie wollen mith
 
 Bei einer Szene im zweiten Huwiler-Band habe ich dreimal neu angesetzt. Dreimal vorgelesen. Beim dritten Mal gähnte Sánná. Ich habe die Szene komplett gestrichen. Es war die richtige Entscheidung.
 
-## September am See
-
-Diese Woche stehen wir am See. Die Tage sind noch warm, aber die Abende kühlen ab. Der Herbst kündigt sich an. Sánná liebt das. Sie ist ein Nordlandshund, Hitze macht ihr zu schaffen, Kühle belebt sie.
-
-Ich sitze am Morgen draussen, Kaffee in der Hand. Sánná liegt neben mir im Gras. Das Tal erwacht langsam. In solchen Momenten kommt das Schreiben wie von selbst. Ich greife zum Laptop und tippe, bevor der Verstand anfängt zu zensieren.
-
-Das Wohnmobil gibt mir diese Freiheit. Kein Büro, kein Kalender, kein Telefon. Nur der nächste Satz, und eine Hündin, die wartet, bis ich fertig bin.
-
 ## Was ich von ihr gelernt habe
 
 Sánná lebt im Moment. Sie freut sich über den Morgenspaziergang, als wäre es der erste. Sie schläft tief, wenn Schlafen dran ist. Sie ist vollständig da, was immer sie gerade tut.
