@@ -62,9 +62,11 @@ import Base from '../layouts/Base.astro';
 					method="post"
 					action="https://flow.cleverreach.com/fl/0890aa50-717b-4501-a93b-7df2d1ed1785/confirm"
 					class=""
-					target="_blank"
 				>
+					<!-- Honeypot (CleverReach-kompatibel) -->
 					<input type="text" tabindex="-1" autocomplete="false" style="display:none !important;" class="cr-nope" name="email_confirm">
+					<!-- Timing-Feld -->
+					<input type="hidden" name="_ts" class="ts-field" />
 
 					<div class="cr-web-wrapper bgcolor-1">
 						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
@@ -96,54 +98,69 @@ import Base from '../layouts/Base.astro';
 						</div>
 					</div>
 
-					<!-- reCAPTCHA v2 -->
-					<div class="cr-web-wrapper bgcolor-1">
-						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
-							<div
-								class="g-recaptcha"
-								data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-								data-callback="onRecaptchaSolved"
-								data-expired-callback="onRecaptchaExpired"
-							></div>
-						</div>
-					</div>
-
 					<div class="cr-web-wrapper bgcolor-1">
 						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
 							<div class="cr-web-form">
-								<button id="cr-submit-btn" type="submit" class="aux-color-1 aux-bgcolor-1 cr-text" disabled>Anmelden</button>
+								<button type="submit" class="aux-color-1 aux-bgcolor-1 cr-text">Anmelden</button>
 							</div>
 						</div>
 					</div>
-				</form>
 
-				<!-- reCAPTCHA Script -->
-				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+					<!-- Statusmeldung -->
+					<div id="nl-status" style="padding:0 20px;display:none;">
+						<p id="nl-msg" style="margin:0.75rem 0;padding:0.75rem 1rem;border-radius:4px;font-family:var(--font-sans);font-size:0.9rem;"></p>
+					</div>
+				</form>
 
 				<!-- ------------ javascript ------------ -->
 				<script>
-					// reCAPTCHA callbacks
-					window.onRecaptchaSolved = function() {
-						const btn = document.getElementById('cr-submit-btn');
-						if (btn) btn.removeAttribute('disabled');
-					};
-					window.onRecaptchaExpired = function() {
-						const btn = document.getElementById('cr-submit-btn');
-						if (btn) btn.setAttribute('disabled', 'disabled');
-					};
-
-					// Checkbox required handling (CleverReach default)
-					document.addEventListener("DOMContentLoaded", () => {
-						document.querySelectorAll('input[type="checkbox"][required]').forEach(e => {
-							e.addEventListener("change", () => {
-								let t = e.closest("ul"),
-									n = t.querySelectorAll('input[type="checkbox"]:checked').length;
-								t.querySelectorAll('input[type="checkbox"]').forEach(e => {
-									n > 0 ? e.removeAttribute("required") : e.setAttribute("required", "required");
-								});
-							});
-						});
+					// Timing-Feld beim Laden setzen
+					document.querySelectorAll('.ts-field').forEach((el) => {
+						el.value = String(Math.floor(Date.now() / 1000));
 					});
+
+					// Formular via Fetch → newsletter.php (Spam-Schutz)
+					const form = document.getElementById('cr-newsletter-form');
+					if (form) {
+						form.addEventListener('submit', async (e) => {
+							e.preventDefault();
+							const btn = form.querySelector('button[type="submit"]');
+							const statusDiv = document.getElementById('nl-status');
+							const msg = document.getElementById('nl-msg');
+							btn.disabled = true;
+							btn.textContent = 'Wird gesendet…';
+
+							try {
+								const res = await fetch('/newsletter.php', {
+									method: 'POST',
+									body: new FormData(form),
+								});
+								const data = await res.json();
+								statusDiv.style.display = 'block';
+								if (data.ok) {
+									msg.style.background = '#d4edda';
+									msg.style.color = '#155724';
+									msg.textContent = '✅ Fast geschafft! Bitte bestätige deine Anmeldung per E-Mail.';
+									form.querySelector('input[name="email"]').value = '';
+									form.querySelector('input[name="global.firstname"]').value = '';
+									btn.textContent = 'Gesendet';
+								} else {
+									msg.style.background = '#f8d7da';
+									msg.style.color = '#721c24';
+									msg.textContent = data.error || 'Ein Fehler ist aufgetreten. Bitte erneut versuchen.';
+									btn.disabled = false;
+									btn.textContent = 'Anmelden';
+								}
+							} catch (err) {
+								statusDiv.style.display = 'block';
+								msg.style.background = '#f8d7da';
+								msg.style.color = '#721c24';
+								msg.textContent = 'Netzwerkfehler. Bitte erneut versuchen.';
+								btn.disabled = false;
+								btn.textContent = 'Anmelden';
+							}
+						});
+					}
 				</script>
 			<!-- ------------ /CR-Popup ------------ -->
 			</div>
