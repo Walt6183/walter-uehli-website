@@ -57,7 +57,13 @@ import Base from '../layouts/Base.astro';
 					.cr-embed h1{font-size:1.4rem;margin:0}
 				</style>
 				<!-- ------------ form ------------ -->
-				<form method="post" action="https://flow.cleverreach.com/fl/0890aa50-717b-4501-a93b-7df2d1ed1785/confirm" class="" target="_blank">
+				<form
+					id="cr-newsletter-form"
+					method="post"
+					action="https://flow.cleverreach.com/fl/0890aa50-717b-4501-a93b-7df2d1ed1785/confirm"
+					class=""
+					target="_blank"
+				>
 					<input type="text" tabindex="-1" autocomplete="false" style="display:none !important;" class="cr-nope" name="email_confirm">
 
 					<div class="cr-web-wrapper bgcolor-1">
@@ -90,19 +96,56 @@ import Base from '../layouts/Base.astro';
 						</div>
 					</div>
 
+					<!-- reCAPTCHA v2 -->
+					<div class="cr-web-wrapper bgcolor-1">
+						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
+							<div
+								class="g-recaptcha"
+								data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+								data-callback="onRecaptchaSolved"
+								data-expired-callback="onRecaptchaExpired"
+							></div>
+						</div>
+					</div>
+
 					<div class="cr-web-wrapper bgcolor-1">
 						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
 							<div class="cr-web-form">
-								<button type="submit" class="aux-color-1 aux-bgcolor-1 cr-text">Anmelden</button>
+								<button id="cr-submit-btn" type="submit" class="aux-color-1 aux-bgcolor-1 cr-text" disabled>Anmelden</button>
 							</div>
 						</div>
 					</div>
 				</form>
+
+				<!-- reCAPTCHA Script -->
+				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 				<!-- ------------ javascript ------------ -->
 				<script>
-					document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll('input[type="checkbox"][required]').forEach(e=>{e.addEventListener("change",()=>{let t=e.closest("ul"),n=t.querySelectorAll('input[type="checkbox"]:checked').length;t.querySelectorAll('input[type="checkbox"]').forEach(e=>{n>0?e.removeAttribute("required"):e.setAttribute("required","required")})})})})
+					// reCAPTCHA callbacks
+					window.onRecaptchaSolved = function() {
+						const btn = document.getElementById('cr-submit-btn');
+						if (btn) btn.removeAttribute('disabled');
+					};
+					window.onRecaptchaExpired = function() {
+						const btn = document.getElementById('cr-submit-btn');
+						if (btn) btn.setAttribute('disabled', 'disabled');
+					};
+
+					// Checkbox required handling (CleverReach default)
+					document.addEventListener("DOMContentLoaded", () => {
+						document.querySelectorAll('input[type="checkbox"][required]').forEach(e => {
+							e.addEventListener("change", () => {
+								let t = e.closest("ul"),
+									n = t.querySelectorAll('input[type="checkbox"]:checked').length;
+								t.querySelectorAll('input[type="checkbox"]').forEach(e => {
+									n > 0 ? e.removeAttribute("required") : e.setAttribute("required", "required");
+								});
+							});
+						});
+					});
 				</script>
-				<!-- ------------ /CR-Popup ------------ -->
+			<!-- ------------ /CR-Popup ------------ -->
 			</div>
 			<p class="hint muted text-center">Anmeldung über CleverReach · jederzeit abbestellbar</p>
 		</div>
