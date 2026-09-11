@@ -21,74 +21,76 @@ import Base from '../layouts/Base.astro';
 	<section class="section forms">
 		<div class="container">
 			<div class="card cr-embed">
-				<style data="cr/theme" is:global>
-					.cr-embed .bgcolor-1{background-color:transparent}
-					.cr-embed .color-1{color:var(--text)}
-					.cr-embed .bgcolor-2{background-color:transparent}
-					.cr-embed .color-2{color:var(--text)}
-					.cr-embed .aux-color-1{color:#fff}
-					.cr-embed .aux-bgcolor-1{background-color:var(--accent)}
-					.cr-embed .aux-color-2{color:var(--accent-hover)}
-					.cr-embed .aux-bgcolor-2{background-color:var(--accent-hover)}
-					.cr-embed a{color:var(--accent-hover)}
-					.cr-web-row{width:100%;max-width:600px}
-				</style>
 				<style hash="cr-web-css" is:global>
-					.cr-embed .cr-nope{display:none!important}
-					.cr-embed .cr-web-row{box-sizing:border-box}
-					@media only screen and (max-width:768px){.cr-embed .cr-web-row{width:100%}}
-					.cr-embed .cr-web-wrapper{display:flex;justify-content:center}
 					.cr-embed .cr-web-form{display:flex;flex-direction:column}
-					.cr-embed .cr-web-form input,.cr-embed .cr-web-form select,.cr-embed .cr-web-form button{padding:0.8rem 1rem;border-radius:var(--radius-sm);border-style:solid;border-width:1px;border-color:var(--border);background:var(--bg-elevated);color:var(--text);font-family:var(--font-sans);font-size:1rem}
-					.cr-embed .cr-web-form label,.cr-embed .cr-web-label{font-weight:500;padding:8px 0;font-style:normal;line-height:normal;color:var(--text-muted);font-family:var(--font-sans);font-size:0.85rem}
-					.cr-embed .cr-web-form button{font-size:1em;font-weight:700;color:#fff;border-style:solid;border-color:transparent;border-radius:4px;cursor:pointer;transition:background 0.18s ease}
-					.cr-embed .cr-web-form button:hover{background-color:var(--accent-hover)!important}
-					.cr-embed .cr-web-form label.required:after{content:' *';font-size:1.1em}
-					.cr-embed h1{font-size:1.4rem;margin:0}
+					.cr-embed .cr-web-form input{padding:0.8rem 1rem;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--bg-elevated);color:var(--text);font-family:var(--font-sans);font-size:1rem;margin-bottom:0.75rem}
+					.cr-embed .cr-web-form label{font-weight:500;padding-bottom:4px;display:block;color:var(--text-muted);font-family:var(--font-sans);font-size:0.85rem}
+					.cr-embed .cr-web-form label.required:after{content:' *'}
+					.cr-embed h1{font-size:1.4rem;margin:0 0 1.5rem 0}
+					.cr-embed button{width:100%;padding:0.8rem 1rem;background:var(--accent);color:#fff;font-size:1rem;font-weight:700;border:none;border-radius:4px;cursor:pointer;transition:background 0.18s ease}
+					.cr-embed button:hover{background:var(--accent-hover)}
+					.cr-embed button:disabled{opacity:0.6;cursor:not-allowed}
+					#nl-status{margin-top:1rem;padding:0.75rem 1rem;border-radius:4px;font-family:var(--font-sans);font-size:0.9rem;display:none}
 				</style>
-				<form
-					id="cr-newsletter-form"
-					method="post"
-					action="https://flow.cleverreach.com/fl/0890aa50-717b-4501-a93b-7df2d1ed1785/confirm"
-				>
-					<div class="cr-web-wrapper bgcolor-1">
-						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
-							<div class="cr-text color-2">
-								<h1>Anmeldung zum Newsletter</h1>
-							</div>
-						</div>
-					</div>
 
-					<div class="cr-web-wrapper bgcolor-1">
-						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
-							<div class="cr-text color-2">
-								<div class="cr-web-form">
-									<label class="required">Vorname</label>
-									<input type="text" placeholder="" name="global.firstname" required>
-								</div>
-							</div>
-						</div>
-					</div>
+				<h1>Anmeldung zum Newsletter</h1>
 
-					<div class="cr-web-wrapper bgcolor-1">
-						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
-							<div class="cr-text color-2">
-								<div class="cr-web-form">
-									<label class="required">E-Mail</label>
-									<input type="email" placeholder="" name="email" required>
-								</div>
-							</div>
-						</div>
-					</div>
+				<form id="cr-newsletter-form" class="cr-web-form">
+					<label class="required">Vorname</label>
+					<input type="text" name="global.firstname" required placeholder="">
 
-					<div class="cr-web-wrapper bgcolor-1">
-						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
-							<div class="cr-web-form">
-								<button type="submit" class="aux-color-1 aux-bgcolor-1 cr-text">Anmelden</button>
-							</div>
-						</div>
-					</div>
+					<label class="required">E-Mail</label>
+					<input type="email" name="email" required placeholder="">
+
+					<button type="submit">Anmelden</button>
+					<div id="nl-status"></div>
 				</form>
+
+				<script>
+					const form = document.getElementById('cr-newsletter-form');
+					const status = document.getElementById('nl-status');
+
+					form?.addEventListener('submit', async (e) => {
+						e.preventDefault();
+						const btn = form.querySelector('button');
+						btn.disabled = true;
+						btn.textContent = 'Wird gesendet…';
+						status.style.display = 'none';
+
+						const data = new FormData(form);
+						const params = new URLSearchParams();
+						params.append('email', data.get('email'));
+						params.append('global.firstname', data.get('global.firstname'));
+						params.append('email_confirm', '');
+
+						try {
+							const res = await fetch(
+								'https://flow.cleverreach.com/fl/0890aa50-717b-4501-a93b-7df2d1ed1785/confirm',
+								{
+									method: 'POST',
+									headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+									body: params.toString(),
+									mode: 'no-cors'
+								}
+							);
+							// no-cors gibt immer opaque response — wir zeigen Erfolg
+							status.style.display = 'block';
+							status.style.background = '#d4edda';
+							status.style.color = '#155724';
+							status.textContent = '✅ Fast geschafft! Bitte bestätige deine Anmeldung per E-Mail.';
+							form.querySelector('input[type="email"]').value = '';
+							form.querySelector('input[type="text"]').value = '';
+							btn.textContent = 'Gesendet';
+						} catch (err) {
+							status.style.display = 'block';
+							status.style.background = '#f8d7da';
+							status.style.color = '#721c24';
+							status.textContent = 'Fehler. Bitte versuche es direkt auf CleverReach.';
+							btn.disabled = false;
+							btn.textContent = 'Anmelden';
+						}
+					});
+				</script>
 			</div>
 			<p class="hint muted text-center">Anmeldung über CleverReach · jederzeit abbestellbar</p>
 		</div>
@@ -96,22 +98,9 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <style>
-	.head {
-		text-align: center;
-	}
-	.head .lead {
-		margin-inline: auto;
-		max-width: 52ch;
-	}
-	.forms {
-		padding-top: 0;
-	}
-	.cr-embed {
-		max-width: 520px;
-		margin-inline: auto;
-	}
-	.hint {
-		margin-top: 1.5rem;
-		font-size: 0.85rem;
-	}
+	.head { text-align: center; }
+	.head .lead { margin-inline: auto; max-width: 52ch; }
+	.forms { padding-top: 0; }
+	.cr-embed { max-width: 520px; margin-inline: auto; padding: 2rem; }
+	.hint { margin-top: 1.5rem; font-size: 0.85rem; }
 </style>
