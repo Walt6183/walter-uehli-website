@@ -4,19 +4,93 @@ import Base from '../layouts/Base.astro';
 
 <Base
 	title="Newsletter – Tatort-Post | Walter Uehli"
-	description="Melde dich zur Tatort-Post an."
+	description="Melde dich zur Tatort-Post an: Einblicke in den Schreibprozess, atmosphärische Bilder der Schauplätze und Neuigkeiten rund um Fred Huwiler – direkt in dein Postfach."
 >
 	<section class="section">
 		<div class="container head prose">
 			<span class="eyebrow">Newsletter</span>
 			<h1>Tatort-Post</h1>
 			<p class="lead">
-				Die Newsletter-Anmeldung ist momentan wegen technischer Wartungsarbeiten
-				vorübergehend nicht verfügbar.
+				Einblicke in den Schreibprozess, atmosphärische Bilder der Schauplätze und die
+				Neuigkeiten rund um Fred Huwiler – direkt in dein Postfach. Kein Spam, jederzeit
+				abbestellbar.
 			</p>
-			<p class="muted">
-				Bitte versuche es in Kürze wieder — wir sind gleich zurück. Danke für dein Verständnis!
-			</p>
+		</div>
+	</section>
+
+	<section class="section forms">
+		<div class="container">
+			<div class="card cr-embed">
+				<style data="cr/theme" is:global>
+					.cr-embed .bgcolor-1{background-color:transparent}
+					.cr-embed .color-1{color:var(--text)}
+					.cr-embed .bgcolor-2{background-color:transparent}
+					.cr-embed .color-2{color:var(--text)}
+					.cr-embed .aux-color-1{color:#fff}
+					.cr-embed .aux-bgcolor-1{background-color:var(--accent)}
+					.cr-embed .aux-color-2{color:var(--accent-hover)}
+					.cr-embed .aux-bgcolor-2{background-color:var(--accent-hover)}
+					.cr-embed a{color:var(--accent-hover)}
+					.cr-web-row{width:100%;max-width:600px}
+				</style>
+				<style hash="cr-web-css" is:global>
+					.cr-embed .cr-nope{display:none!important}
+					.cr-embed .cr-web-row{box-sizing:border-box}
+					@media only screen and (max-width:768px){.cr-embed .cr-web-row{width:100%}}
+					.cr-embed .cr-web-wrapper{display:flex;justify-content:center}
+					.cr-embed .cr-web-form{display:flex;flex-direction:column}
+					.cr-embed .cr-web-form input,.cr-embed .cr-web-form select,.cr-embed .cr-web-form button{padding:0.8rem 1rem;border-radius:var(--radius-sm);border-style:solid;border-width:1px;border-color:var(--border);background:var(--bg-elevated);color:var(--text);font-family:var(--font-sans);font-size:1rem}
+					.cr-embed .cr-web-form label,.cr-embed .cr-web-label{font-weight:500;padding:8px 0;font-style:normal;line-height:normal;color:var(--text-muted);font-family:var(--font-sans);font-size:0.85rem}
+					.cr-embed .cr-web-form button{font-size:1em;font-weight:700;color:#fff;border-style:solid;border-color:transparent;border-radius:4px;cursor:pointer;transition:background 0.18s ease}
+					.cr-embed .cr-web-form button:hover{background-color:var(--accent-hover)!important}
+					.cr-embed .cr-web-form label.required:after{content:' *';font-size:1.1em}
+					.cr-embed h1{font-size:1.4rem;margin:0}
+				</style>
+				<form
+					id="cr-newsletter-form"
+					method="post"
+					action="https://flow.cleverreach.com/fl/218bce24-0609-4e06-b988-ab3ca67356f9/confirm"
+				>
+					<div class="cr-web-wrapper bgcolor-1">
+						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
+							<div class="cr-text color-2">
+								<h1>Anmeldung zum Newsletter</h1>
+							</div>
+						</div>
+					</div>
+
+					<div class="cr-web-wrapper bgcolor-1">
+						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
+							<div class="cr-text color-2">
+								<div class="cr-web-form">
+									<label class="required">Vorname</label>
+									<input type="text" placeholder="" name="global.firstname" required>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="cr-web-wrapper bgcolor-1">
+						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
+							<div class="cr-text color-2">
+								<div class="cr-web-form">
+									<label class="required">E-Mail</label>
+									<input type="email" placeholder="" name="email" required>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="cr-web-wrapper bgcolor-1">
+						<div class="cr-web-row bgcolor-2" style="padding:10px 20px;">
+							<div class="cr-web-form">
+								<button type="submit" class="aux-color-1 aux-bgcolor-1 cr-text">Anmelden</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			<p class="hint muted text-center">Anmeldung über CleverReach · jederzeit abbestellbar</p>
 		</div>
 	</section>
 </Base>
@@ -24,11 +98,20 @@ import Base from '../layouts/Base.astro';
 <style>
 	.head {
 		text-align: center;
-		max-width: 52ch;
-		margin-inline: auto;
 	}
 	.head .lead {
 		margin-inline: auto;
 		max-width: 52ch;
+	}
+	.forms {
+		padding-top: 0;
+	}
+	.cr-embed {
+		max-width: 520px;
+		margin-inline: auto;
+	}
+	.hint {
+		margin-top: 1.5rem;
+		font-size: 0.85rem;
 	}
 </style>
