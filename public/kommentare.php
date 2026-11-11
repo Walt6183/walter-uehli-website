@@ -140,18 +140,21 @@ function handle_moderation(string $DATA, string $secret, string $DOCROOT, string
         $do    = (string)($_POST['do'] ?? '');
         $reply = mb_substr(clean_text((string)($_POST['reply'] ?? '')), 0, MAX_TEXT);
         $found = with_store($DATA, $slug, function (array &$data) use ($id, $do, $reply) {
-            foreach ($data as $i => &$c) {
-                if (($c['id'] ?? '') !== $id) continue;
-                if ($do === 'delete') { unset($data[$i]); return 'deleted'; }
-                if ($do === 'approve') {
-                    $c['status'] = 'approved';
-                    $c['reply'] = $reply;
-                    $c['replied_at'] = $reply !== '' ? gmdate('c') : '';
-                    return 'approved';
-                }
-                return 'noop';
+            $idx = null;
+            foreach ($data as $i => $c) { if (($c['id'] ?? '') === $id) { $idx = $i; break; } }
+            if ($idx === null) return 'missing';
+            if ($do === 'delete') {
+                // Löscht den Kommentar und alle Antworten darauf
+                $data = array_values(array_filter($data, fn($c) => ($c['id'] ?? '') !== $id && ($c['parent'] ?? '') !== $id));
+                return 'deleted';
             }
-            return 'missing';
+            if ($do === 'approve') {
+                $data[$idx]['status'] = 'approved';
+                $data[$idx]['reply'] = $reply;
+                $data[$idx]['replied_at'] = $reply !== '' ? gmdate('c') : '';
+                return 'approved';
+            }
+            return 'noop';
         });
         $msg = ['deleted' => 'Der Kommentar wurde gelöscht.',
                 'approved' => 'Der Kommentar ist jetzt veröffentlicht.',
@@ -166,7 +169,18 @@ function handle_moderation(string $DATA, string $secret, string $DOCROOT, string
 
     $status = ($comment['status'] ?? '') === 'approved' ? 'veröffentlicht' : 'wartet auf Freigabe';
     $mail   = (string)($comment['email'] ?? '');
-    $body  = '<h1>Kommentar zu «' . h($slug) . '»</h1>'
+    $ctx    = '';
+    if (!empty($comment['parent'])) {
+        foreach (read_store($DATA, $slug) as $pc) {
+            if (($pc['id'] ?? '') === $comment['parent']) {
+                $ctx = '<p class="meta">Antwort auf den Kommentar von <strong>' . h((string)$pc['name']) . '</strong>:</p>'
+                     . '<div class="txt">' . h(mb_substr((string)$pc['text'], 0, 400)) . '</div>';
+                break;
+            }
+        }
+    }
+    $body  = '<h1>' . (!empty($comment['parent']) ? 'Antwort' : 'Kommentar') . ' zu «' . h($slug) . '»</h1>'
+           . $ctx
            . '<p class="meta">Status: <span class="badge">' . h($status) . '</span></p>'
            . '<p class="meta">Von: <strong>' . h((string)$comment['name']) . '</strong>'
            . ($mail !== '' ? ' (' . h($mail) . ')' : ' (keine E-Mail angegeben)') . '</p>'
@@ -196,16 +210,25 @@ if (isset($_GET['mod'])) {
 if ($method === 'GET') {
     $slug = (string)($_GET['slug'] ?? '');
     if (!valid_slug($slug, $DOCROOT)) { json_out(['ok' => true, 'comments' => []]); }
+    $all = read_store($DATA, $slug);
+    $pub = fn(array $c) => [
+        'name'       => (string)$c['name'],
+        'text'       => (string)$c['text'],
+        'created'    => (string)$c['created'],
+        'reply'      => (string)($c['reply'] ?? ''),
+        'replied_at' => (string)($c['replied_at'] ?? ''),
+    ];
+    $children = [];
+    foreach ($all as $c) {
+        if (($c['status'] ?? '') === 'approved' && !empty($c['parent'])) { $children[(string)$c['parent']][] = $pub($c); }
+    }
     $out = [];
-    foreach (read_store($DATA, $slug) as $c) {
-        if (($c['status'] ?? '') !== 'approved') continue;
-        $out[] = [
-            'name'       => (string)$c['name'],
-            'text'       => (string)$c['text'],
-            'created'    => (string)$c['created'],
-            'reply'      => (string)($c['reply'] ?? ''),
-            'replied_at' => (string)($c['replied_at'] ?? ''),
-        ];
+    foreach ($all as $c) {
+        if (($c['status'] ?? '') !== 'approved' || !empty($c['parent'])) continue;
+        $item = $pub($c);
+        $item['id'] = (string)$c['id'];
+        $item['children'] = $children[(string)$c['id']] ?? [];
+        $out[] = $item;
     }
     json_out(['ok' => true, 'comments' => $out]);
 }
@@ -243,6 +266,22 @@ $name  = clean_line((string)($_POST['name'] ?? ''));
 $email = trim((string)($_POST['email'] ?? ''));
 $text  = clean_text((string)($_POST['text'] ?? ''));
 
+// Antwort auf einen Kommentar: nur auf freigegebene Kommentare der obersten Ebene
+$parent = (string)($_POST['parent'] ?? '');
+$parent_name = '';
+$parent_text = '';
+if ($parent !== '') {
+    $found_parent = false;
+    if (preg_match('/^[a-f0-9]{16}$/', $parent)) {
+        foreach (read_store($DATA, $slug) as $pc) {
+            if (($pc['id'] ?? '') === $parent && ($pc['status'] ?? '') === 'approved' && empty($pc['parent'])) {
+                $found_parent = true; $parent_name = (string)$pc['name']; $parent_text = (string)$pc['text']; break;
+            }
+        }
+    }
+    if (!$found_parent) { fail('Auf diesen Kommentar kann nicht geantwortet werden.'); }
+}
+
 if (mb_strlen($name) < 2 || mb_strlen($name) > MAX_NAME) { fail('Bitte gib einen Namen an (2 bis ' . MAX_NAME . ' Zeichen).'); }
 if (preg_match('#https?://|www\.#i', $name)) { silent_ok(); }
 if ($email !== '') {
@@ -260,11 +299,11 @@ if (preg_match('/\b(casino|poker|viagra|cialis|crypto|bitcoin|backlinks?|click h
 // 5. Speichern
 $id    = bin2hex(random_bytes(8));
 $thash = hash('sha256', mb_strtolower($text));
-$stored = with_store($DATA, $slug, function (array &$data) use ($id, $name, $email, $text, $thash, $ip_hash) {
+$stored = with_store($DATA, $slug, function (array &$data) use ($id, $name, $email, $text, $thash, $ip_hash, $parent) {
     if (count($data) >= MAX_PER_POST) return 'full';
     foreach ($data as $c) { if (($c['thash'] ?? '') === $thash) return 'dupe'; }
     $data[] = [
-        'id' => $id, 'name' => $name, 'email' => $email, 'text' => $text,
+        'id' => $id, 'parent' => $parent, 'name' => $name, 'email' => $email, 'text' => $text,
         'created' => gmdate('c'), 'status' => 'pending',
         'reply' => '', 'replied_at' => '', 'thash' => $thash, 'ip' => substr($ip_hash, 0, 16),
     ];
@@ -275,9 +314,13 @@ if ($stored === 'dupe') { silent_ok(); }
 
 // 6. Benachrichtigung an Walter
 $link    = $SITE_URL . '/kommentare.php?mod=1&slug=' . rawurlencode($slug) . '&id=' . $id . '&t=' . mod_token($secret, $slug, $id);
-$betreff = 'Neuer Kommentar zu «' . $slug . '» (Freigabe nötig)';
-$body    = "Neuer Kommentar auf walter-uehli.ch\n" . str_repeat('-', 48) . "\n"
+$is_reply = $parent !== '';
+$betreff = ($is_reply ? 'Neue Antwort auf einen Kommentar zu «' : 'Neuer Kommentar zu «') . $slug . '» (Freigabe nötig)';
+$body    = ($is_reply ? "Neue Antwort auf einen Kommentar auf walter-uehli.ch\n" : "Neuer Kommentar auf walter-uehli.ch\n")
+         . str_repeat('-', 48) . "\n"
          . 'Beitrag: ' . $SITE_URL . '/blog/' . $slug . "/\n"
+         . ($is_reply ? 'Antwort auf den Kommentar von ' . $parent_name . ":\n"
+                        . '«' . mb_substr($parent_text, 0, 300) . "»\n\n" : '')
          . 'Name: ' . $name . "\n"
          . 'E-Mail: ' . ($email !== '' ? $email : '(keine angegeben)') . "\n\n"
          . $text . "\n\n" . str_repeat('-', 48) . "\n"

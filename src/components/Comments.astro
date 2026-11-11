@@ -11,10 +11,15 @@ const { slug } = Astro.props;
 		<p class="meta">Kommentare werden geladen …</p>
 	</div>
 
-	<h3>Schreib einen Kommentar</h3>
+	<h3 id="form-title">Schreib einen Kommentar</h3>
 	<form class="comment-form" id="comment-form" novalidate>
 		<input type="hidden" name="slug" value={slug} />
 		<input type="hidden" name="_ts" id="comment-ts" value="" />
+		<input type="hidden" name="parent" id="comment-parent" value="" />
+		<p class="replying" id="replying" hidden>
+			<span id="replying-text"></span>
+			<button type="button" class="linklike" id="replying-cancel">Abbrechen</button>
+		</p>
 		<div class="hp" aria-hidden="true">
 			<label>Dieses Feld bitte leer lassen
 				<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
@@ -90,6 +95,18 @@ const { slug } = Astro.props;
 	.comment-form .status { margin: 0.8rem 0 0; font-family: var(--font-sans); min-height: 1.4em; }
 	.comment-form .status.ok { color: #7bc47f; }
 	.comment-form .status.err { color: #ff8a8a; }
+	.comment .children { margin: 1rem 0 0 1rem; }
+	.comment .children .comment { margin-bottom: 0.7rem; background: var(--bg); }
+	.comment .actions { margin: 0.8rem 0 0; }
+	.linklike {
+		background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
+		font-family: var(--font-sans); font-size: 0.88rem; color: var(--text-muted); text-decoration: underline;
+	}
+	.linklike:hover { color: var(--text); }
+	.replying {
+		font-family: var(--font-sans); font-size: 0.92rem; margin: 0 0 0.5rem; padding: 0.6rem 0.8rem;
+		background: var(--accent-soft); border-left: 3px solid var(--accent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	}
 	.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 </style>
 
@@ -101,6 +118,19 @@ const { slug } = Astro.props;
 	const status = document.getElementById('c-status');
 	const submit = document.getElementById('c-submit') as HTMLButtonElement | null;
 	const ts = document.getElementById('comment-ts') as HTMLInputElement | null;
+	const parentInput = document.getElementById('comment-parent') as HTMLInputElement | null;
+	const replying = document.getElementById('replying');
+	const replyingText = document.getElementById('replying-text');
+	const formTitle = document.getElementById('form-title');
+
+	function setParent(id: string, name: string) {
+		if (!parentInput || !replying || !replyingText) return;
+		parentInput.value = id;
+		replying.hidden = !id;
+		replyingText.textContent = id ? 'Du antwortest auf den Kommentar von ' + name + '.' : '';
+		if (formTitle) formTitle.textContent = id ? 'Schreib eine Antwort' : 'Schreib einen Kommentar';
+	}
+	document.getElementById('replying-cancel')?.addEventListener('click', () => setParent('', ''));
 
 	if (ts) ts.value = String(Math.floor(Date.now() / 1000));
 
@@ -127,7 +157,7 @@ const { slug } = Astro.props;
 				list.appendChild(el('p', 'meta', 'Noch keine Kommentare. Schreib den ersten.'));
 				return;
 			}
-			for (const c of items) {
+			const render = (c: any, top: boolean): HTMLElement => {
 				const box = el('div', 'comment');
 				const who = el('p', 'who');
 				who.appendChild(el('strong', undefined, c.name));
@@ -145,8 +175,26 @@ const { slug } = Astro.props;
 					rep.appendChild(el('p', 'body', c.reply));
 					box.appendChild(rep);
 				}
-				list.appendChild(box);
-			}
+				if (top && c.children && c.children.length) {
+					const kids = el('div', 'children');
+					for (const k of c.children) kids.appendChild(render(k, false));
+					box.appendChild(kids);
+				}
+				if (top && c.id) {
+					const act = el('p', 'actions');
+					const btn = el('button', 'linklike', 'Antworten') as HTMLButtonElement;
+					btn.type = 'button';
+					btn.addEventListener('click', () => {
+						setParent(c.id, c.name);
+						form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+						(document.getElementById('c-text') as HTMLTextAreaElement | null)?.focus();
+					});
+					act.appendChild(btn);
+					box.appendChild(act);
+				}
+				return box;
+			};
+			for (const c of items) list.appendChild(render(c, true));
 		} catch {
 			list.replaceChildren(el('p', 'meta', 'Die Kommentare konnten gerade nicht geladen werden.'));
 		}
@@ -169,6 +217,7 @@ const { slug } = Astro.props;
 			if (r.ok && data.ok) {
 				say(data.message || 'Danke! Dein Kommentar wird nach meiner Prüfung veröffentlicht.', 'ok');
 				form.reset();
+				setParent('', '');
 				if (ts) ts.value = String(Math.floor(Date.now() / 1000));
 			} else {
 				say(data.error || 'Das hat leider nicht geklappt. Bitte versuche es später noch einmal.', 'err');
