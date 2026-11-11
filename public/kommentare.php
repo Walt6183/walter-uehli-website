@@ -105,6 +105,35 @@ function log_err(string $dir, string $msg): void {
     @file_put_contents($dir . '/errors.log', date('c') . ' ' . $msg . "\n", FILE_APPEND | LOCK_EX);
 }
 
+/** Mail an die kommentierende Person, wenn Walter antwortet (nur mit angegebener E-Mail-Adresse). */
+function notify_commenter(array $c, string $reply, string $slug, string $docroot, string $site_url, string $absender, string $notify_to, string $data_dir): bool {
+    $to = trim((string)($c['email'] ?? ''));
+    if ($to === '' || strpbrk($to, "\r\n") !== false || !filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
+    $titel = $slug;
+    $file  = $docroot . '/blog/' . $slug . '/index.html';
+    if (is_file($file) && preg_match('#<title>(.*?)</title>#s', (string)file_get_contents($file), $m)) {
+        $t = trim(html_entity_decode($m[1], ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+        $t = preg_replace('/\s+[–-]\s+Walter Uehli$/u', '', $t) ?? $t;
+        if ($t !== '') $titel = $t;
+    }
+    $vorname = trim((string)strtok((string)($c['name'] ?? ''), ' '));
+    $body = ($vorname !== '' ? 'Hallo ' . $vorname . ",\n\n" : "Hallo,\n\n")
+          . "ich habe auf deinen Kommentar im Blog geantwortet.\n\n"
+          . 'Beitrag: ' . $titel . "\n\n"
+          . "Dein Kommentar:\n" . mb_substr((string)$c['text'], 0, 400) . "\n\n"
+          . "Meine Antwort:\n" . $reply . "\n\n"
+          . 'Den ganzen Beitrag mit allen Kommentaren findest du hier: ' . $site_url . '/blog/' . $slug . "/#kommentare\n\n"
+          . "Herzliche Grüsse\nWalter\n";
+    $headers  = 'From: Walter Uehli <' . $absender . ">\r\n";
+    $headers .= 'Reply-To: ' . $notify_to . "\r\n";
+    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+    $headers .= 'X-Mailer: PHP/' . phpversion();
+    $subject  = 'Walter hat auf deinen Kommentar geantwortet';
+    $ok = @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, $headers);
+    if (!$ok) log_err($data_dir, 'Mail an Kommentierende fehlgeschlagen (' . $slug . ', ' . ($c['id'] ?? '?') . ')');
+    return $ok;
+}
+
 // ── Moderationsseite (Link aus der E-Mail) ───────────────────────────────────
 function mod_page(string $title, string $body): void {
     header('Content-Type: text/html; charset=utf-8');
@@ -125,7 +154,7 @@ function mod_page(string $title, string $body): void {
     exit;
 }
 
-function handle_moderation(string $DATA, string $secret, string $DOCROOT, string $SITE_URL): void {
+function handle_moderation(string $DATA, string $secret, string $DOCROOT, string $SITE_URL, string $ABSENDER, string $NOTIFY): void {
     $src  = $_SERVER['REQUEST_METHOD'] === 'POST' ? $_POST : $_GET;
     $slug = (string)($src['slug'] ?? '');
     $id   = (string)($src['id'] ?? '');
@@ -139,7 +168,8 @@ function handle_moderation(string $DATA, string $secret, string $DOCROOT, string
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $do    = (string)($_POST['do'] ?? '');
         $reply = mb_substr(clean_text((string)($_POST['reply'] ?? '')), 0, MAX_TEXT);
-        $found = with_store($DATA, $slug, function (array &$data) use ($id, $do, $reply) {
+        $notify = null;
+        $found = with_store($DATA, $slug, function (array &$data) use ($id, $do, $reply, &$notify) {
             $idx = null;
             foreach ($data as $i => $c) { if (($c['id'] ?? '') === $id) { $idx = $i; break; } }
             if ($idx === null) return 'missing';
@@ -152,14 +182,26 @@ function handle_moderation(string $DATA, string $secret, string $DOCROOT, string
                 $data[$idx]['status'] = 'approved';
                 $data[$idx]['reply'] = $reply;
                 $data[$idx]['replied_at'] = $reply !== '' ? gmdate('c') : '';
+                $rhash = hash('sha256', $reply);
+                if ($reply !== '' && trim((string)($data[$idx]['email'] ?? '')) !== '' && ($data[$idx]['notified'] ?? '') !== $rhash) {
+                    $notify = $data[$idx];
+                    $data[$idx]['notified'] = $rhash;
+                }
                 return 'approved';
             }
             return 'noop';
         });
+        $mailed = false;
+        if ($found === 'approved' && $notify !== null) {
+            $mailed = notify_commenter($notify, $reply, $slug, $DOCROOT, $SITE_URL, $ABSENDER, $NOTIFY, $DATA);
+        }
         $msg = ['deleted' => 'Der Kommentar wurde gelöscht.',
                 'approved' => 'Der Kommentar ist jetzt veröffentlicht.',
                 'missing' => 'Dieser Kommentar existiert nicht mehr.',
                 'noop' => 'Nichts geändert.'][$found] ?? 'Erledigt.';
+        if ($found === 'approved' && $notify !== null) {
+            $msg .= $mailed ? ' Die Person wurde per E-Mail über deine Antwort informiert.' : ' Die E-Mail an die Person konnte nicht gesendet werden.';
+        }
         mod_page('Erledigt', '<h1>' . h($msg) . '</h1><p><a href="' . h($SITE_URL) . '/blog/' . h($slug) . '/#kommentare">Zum Beitrag</a></p>');
     }
 
@@ -190,7 +232,8 @@ function handle_moderation(string $DATA, string $secret, string $DOCROOT, string
            . '<input type="hidden" name="slug" value="' . h($slug) . '">'
            . '<input type="hidden" name="id" value="' . h($id) . '">'
            . '<input type="hidden" name="t" value="' . h($tok) . '">'
-           . '<label class="meta" for="reply">Deine Antwort (freiwillig, erscheint unter dem Kommentar):</label>'
+           . '<label class="meta" for="reply">Deine Antwort (freiwillig, erscheint unter dem Kommentar'
+           . ($mail !== '' ? ' und geht per E-Mail an ' . h($mail) : '') . '):</label>'
            . '<textarea id="reply" name="reply" maxlength="' . MAX_TEXT . '">' . h((string)($comment['reply'] ?? '')) . '</textarea>'
            . '<button class="ok" name="do" value="approve">Freigeben &amp; speichern</button>'
            . '<button class="del" name="do" value="delete" onclick="return confirm(\'Kommentar wirklich löschen?\')">Löschen</button>'
@@ -203,7 +246,7 @@ $secret = init_store($DATA);
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
 if (isset($_GET['mod'])) {
-    handle_moderation($DATA, $secret, $DOCROOT, $SITE_URL);
+    handle_moderation($DATA, $secret, $DOCROOT, $SITE_URL, $ABSENDER, $NOTIFY);
 }
 
 // Liste freigegebener Kommentare
