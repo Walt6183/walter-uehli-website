@@ -4,6 +4,10 @@ description: "Walter zeigt, wie weit die Planung von «Huwiler und das goldene K
 pubDate: 2026-11-11
 ---
 
+<figure style="max-width:640px;margin:0 auto 2rem;">
+<img src="/blog/20261111_wo-ich-stehe.jpg" alt="Papyrus-Organizer mit der Szenenplanung von «Huwiler und das goldene Kreuz» auf dem MacBook, Inhalte unkenntlich gemacht" style="width:100%;height:auto;border-radius:8px;" />
+</figure>
+
 **Die Planung von Band 2 ist abgeschlossen: 30 Kapitel, 83 Szenen, und für jede Szene steht auf Papier, was sie leisten muss.**
 
 Zuerst eine Entschuldigung: Dieser Beitrag hätte am Sonntag, 8. November, erscheinen sollen. Das habe ich verpasst, darum kommt er erst heute.
