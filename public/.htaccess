@@ -1,0 +1,8 @@
+# Cache-Regeln walter-uehli.ch
+# HTML-Seiten (Blog-Übersicht, Beiträge, Startseite) werden vor jeder Anzeige beim Server geprüft.
+# So sehen Besucher neue Beiträge sofort, ohne dass der Browser eine alte Seite festhält.
+<IfModule mod_headers.c>
+	<FilesMatch "\.(html|xml)$">
+		Header set Cache-Control "no-cache, must-revalidate"
+	</FilesMatch>
+</IfModule>
