@@ -2,10 +2,12 @@
 import type { CollectionEntry } from 'astro:content';
 import Base from './Base.astro';
 import FormattedDate from '../components/FormattedDate.astro';
+import Comments from '../components/Comments.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate } = Astro.props;
+const commentSlug = Astro.url.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
 ---
 
 <Base title={`${title} – Walter Uehli`} description={description} type="article" publishedTime={pubDate}>
@@ -22,6 +24,7 @@ const { title, description, pubDate, updatedDate } = Astro.props;
 			<div class="prose post-content">
 				<slot />
 			</div>
+			<Comments slug={commentSlug} />
 		</div>
 	</article>
 </Base>

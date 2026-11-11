@@ -1,0 +1,184 @@
+---
+interface Props {
+	slug: string;
+}
+const { slug } = Astro.props;
+---
+
+<section class="comments" id="kommentare" data-slug={slug}>
+	<h2>Kommentare</h2>
+	<div class="comment-list" id="comment-list" aria-live="polite">
+		<p class="meta">Kommentare werden geladen …</p>
+	</div>
+
+	<h3>Schreib einen Kommentar</h3>
+	<form class="comment-form" id="comment-form" novalidate>
+		<input type="hidden" name="slug" value={slug} />
+		<input type="hidden" name="_ts" id="comment-ts" value="" />
+		<div class="hp" aria-hidden="true">
+			<label>Dieses Feld bitte leer lassen
+				<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+			</label>
+		</div>
+
+		<label for="c-name">Name <span class="req">(Pflicht)</span></label>
+		<input id="c-name" name="name" type="text" maxlength="60" required autocomplete="name" />
+
+		<label for="c-email">E-Mail <span class="opt">(freiwillig)</span></label>
+		<input id="c-email" name="email" type="email" maxlength="120" autocomplete="email" />
+		<p class="hint">Deine E-Mail-Adresse wird nie veröffentlicht. Ich sehe sie nur, falls ich dir privat antworten möchte.</p>
+
+		<label for="c-text">Kommentar <span class="req">(Pflicht)</span></label>
+		<textarea id="c-text" name="text" rows="5" minlength="10" maxlength="2000" required></textarea>
+		<p class="hint">Links sind nicht erlaubt. Ich prüfe jeden Kommentar, bevor er erscheint.</p>
+
+		<button type="submit" class="btn btn-primary" id="c-submit">Kommentar senden</button>
+		<p class="status" id="c-status" role="status" aria-live="polite"></p>
+		<p class="hint privacy">
+			Mit dem Absenden speichere ich deinen Namen, deinen Kommentar und, falls angegeben, deine E-Mail-Adresse.
+			Mehr dazu in der <a href="/datenschutz">Datenschutzerklärung</a>.
+		</p>
+	</form>
+</section>
+
+<style>
+	.comments {
+		max-width: var(--maxw-prose);
+		margin: 4rem auto 0;
+		padding-top: 2.5rem;
+		border-top: 1px solid var(--border);
+	}
+	.comments h2 { margin: 0 0 1.5rem; }
+	.comments h3 { margin: 2.5rem 0 1rem; font-size: 1.15rem; }
+	.comment {
+		background: var(--bg-soft);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+		padding: 1rem 1.2rem;
+		margin-bottom: 1rem;
+	}
+	.comment .who { font-family: var(--font-sans); font-size: 0.9rem; color: var(--text-muted); margin: 0 0 0.5rem; }
+	.comment .who strong { color: var(--text); }
+	.comment .body { white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; }
+	.comment .reply {
+		margin: 1rem 0 0 1rem;
+		padding: 0.8rem 1rem;
+		border-left: 3px solid var(--accent);
+		background: var(--accent-soft);
+		border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+	}
+	.comment .reply .who strong { color: var(--text); }
+	.comment-form label { display: block; font-family: var(--font-sans); font-size: 0.9rem; margin: 1rem 0 0.3rem; }
+	.comment-form .req, .comment-form .opt { color: var(--text-faint); font-weight: 400; }
+	.comment-form input[type='text'],
+	.comment-form input[type='email'],
+	.comment-form textarea {
+		width: 100%;
+		box-sizing: border-box;
+		background: var(--bg-soft);
+		color: var(--text);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-sm);
+		padding: 0.7rem 0.8rem;
+		font: inherit;
+	}
+	.comment-form input:focus,
+	.comment-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+	.comment-form .hint { font-family: var(--font-sans); font-size: 0.82rem; color: var(--text-faint); margin: 0.35rem 0 0; }
+	.comment-form .privacy { margin-top: 1rem; }
+	.comment-form button { margin-top: 1.2rem; }
+	.comment-form .status { margin: 0.8rem 0 0; font-family: var(--font-sans); min-height: 1.4em; }
+	.comment-form .status.ok { color: #7bc47f; }
+	.comment-form .status.err { color: #ff8a8a; }
+	.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+</style>
+
+<script>
+	const section = document.getElementById('kommentare');
+	const slug = section?.getAttribute('data-slug') ?? '';
+	const list = document.getElementById('comment-list');
+	const form = document.getElementById('comment-form') as HTMLFormElement | null;
+	const status = document.getElementById('c-status');
+	const submit = document.getElementById('c-submit') as HTMLButtonElement | null;
+	const ts = document.getElementById('comment-ts') as HTMLInputElement | null;
+
+	if (ts) ts.value = String(Math.floor(Date.now() / 1000));
+
+	function fmt(iso: string): string {
+		const d = new Date(iso);
+		return isNaN(d.getTime()) ? '' : d.toLocaleDateString('de-CH', { day: 'numeric', month: 'long', year: 'numeric' });
+	}
+
+	function el(tag: string, cls?: string, text?: string): HTMLElement {
+		const e = document.createElement(tag);
+		if (cls) e.className = cls;
+		if (text !== undefined) e.textContent = text; // textContent: nie HTML aus Kommentaren ausführen
+		return e;
+	}
+
+	async function load() {
+		if (!list) return;
+		try {
+			const r = await fetch('/kommentare.php?slug=' + encodeURIComponent(slug), { cache: 'no-store' });
+			const data = await r.json();
+			list.replaceChildren();
+			const items = (data && data.comments) || [];
+			if (!items.length) {
+				list.appendChild(el('p', 'meta', 'Noch keine Kommentare. Schreib den ersten.'));
+				return;
+			}
+			for (const c of items) {
+				const box = el('div', 'comment');
+				const who = el('p', 'who');
+				who.appendChild(el('strong', undefined, c.name));
+				const when = fmt(c.created);
+				if (when) who.appendChild(document.createTextNode(' · ' + when));
+				box.appendChild(who);
+				box.appendChild(el('p', 'body', c.text));
+				if (c.reply) {
+					const rep = el('div', 'reply');
+					const rwho = el('p', 'who');
+					rwho.appendChild(el('strong', undefined, 'Walter'));
+					const rwhen = fmt(c.replied_at);
+					if (rwhen) rwho.appendChild(document.createTextNode(' · ' + rwhen));
+					rep.appendChild(rwho);
+					rep.appendChild(el('p', 'body', c.reply));
+					box.appendChild(rep);
+				}
+				list.appendChild(box);
+			}
+		} catch {
+			list.replaceChildren(el('p', 'meta', 'Die Kommentare konnten gerade nicht geladen werden.'));
+		}
+	}
+
+	function say(msg: string, kind: 'ok' | 'err' | '') {
+		if (!status) return;
+		status.textContent = msg;
+		status.className = 'status' + (kind ? ' ' + kind : '');
+	}
+
+	form?.addEventListener('submit', async (ev) => {
+		ev.preventDefault();
+		if (!form.reportValidity()) return;
+		if (submit) submit.disabled = true;
+		say('Wird gesendet …', '');
+		try {
+			const r = await fetch('/kommentare.php', { method: 'POST', body: new FormData(form) });
+			const data = await r.json().catch(() => ({}));
+			if (r.ok && data.ok) {
+				say(data.message || 'Danke! Dein Kommentar wird nach meiner Prüfung veröffentlicht.', 'ok');
+				form.reset();
+				if (ts) ts.value = String(Math.floor(Date.now() / 1000));
+			} else {
+				say(data.error || 'Das hat leider nicht geklappt. Bitte versuche es später noch einmal.', 'err');
+			}
+		} catch {
+			say('Das hat leider nicht geklappt. Bitte versuche es später noch einmal.', 'err');
+		} finally {
+			if (submit) submit.disabled = false;
+		}
+	});
+
+	load();
+</script>
